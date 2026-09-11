@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trợ lý kiểm tra hồ sơ giải ngân — Pitch 5 phút</title>
+<style>
+  :root{
+    --bg:#0f1420; --panel:#151c2c; --panel2:#1b2536; --line:#26324a;
+    --txt:#e6ecf7; --muted:#93a1bd; --brand:#3b82f6; --brand2:#2563eb;
+    --green:#22c55e; --amber:#f59e0b; --red:#ef4444;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden}
+  body{background:#080b12;color:var(--txt);font-family:"Segoe UI",Roboto,Arial,sans-serif}
+
+  /* ---------- sân khấu 16:9, tự co theo cửa sổ ---------- */
+  #viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  #stage{width:1280px;height:720px;position:relative;transform-origin:center center;
+         background:var(--bg);border-radius:16px;overflow:hidden;box-shadow:0 20px 60px #0009}
+
+  .slide{position:absolute;inset:0;padding:52px 60px 74px;display:none;flex-direction:column}
+  .slide.active{display:flex;animation:in .28s ease-out}
+  @keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  .eyebrow{font-size:13px;letter-spacing:2.4px;text-transform:uppercase;color:var(--muted);font-weight:600}
+  h1{font-size:52px;line-height:1.12;margin:14px 0 0;font-weight:700}
+  h2{font-size:36px;line-height:1.18;margin:8px 0 0;font-weight:700}
+  h3{font-size:19px;margin:0 0 10px;font-weight:650}
+  p{margin:0}
+  .lead{font-size:19px;color:var(--muted);margin-top:12px;line-height:1.55}
+  .quote{margin-top:auto;font-size:26px;line-height:1.45;font-weight:600;border-left:4px solid var(--brand);padding:6px 0 6px 22px;max-width:1000px}
+  .body{margin-top:26px;flex:1;min-height:0;display:flex;flex-direction:column;gap:18px}
+
+  .row{display:flex;gap:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .card.flat{background:var(--panel2)}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .kpi .v{font-size:38px;font-weight:750;line-height:1}
+  .kpi .u{font-size:16px;font-weight:600;color:var(--muted)}
+  .kpi .lb{font-size:13.5px;color:var(--muted);margin-top:8px;line-height:1.4}
+  .kpi.hot .v{color:#fca5a5}
+  .kpi.warm .v{color:#fbd38d}
+  .kpi.cool .v{color:#7dd3fc}
+
+  ul{margin:0;padding-left:20px} li{margin:7px 0;font-size:16.5px;line-height:1.5}
+  li b{font-weight:700}
+  .muted{color:var(--muted)}
+  .sm{font-size:14px}
+
+  table{width:100%;border-collapse:collapse;font-size:16px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th{font-size:12.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:650}
+  tr.hi td{background:rgba(59,130,246,.13);font-weight:650}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  th.num{text-align:right}
+
+  .chain{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:15.5px}
+  .chain .n{background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:8px 15px;font-weight:600}
+  .chain .n.dim{opacity:.5;font-weight:500}
+  .chain .n.on{border-color:var(--brand);background:rgba(59,130,246,.16);box-shadow:0 0 0 1px var(--brand) inset}
+  .chain .a{color:var(--muted)}
+  .def{font-size:15px;color:var(--muted);line-height:1.6}
+  .def b{color:var(--txt)}
+
+  .tag{display:inline-block;padding:3px 11px;border-radius:999px;font-size:13px;font-weight:650}
+  .tag.g{background:rgba(34,197,94,.16);color:#7ee2a4}
+  .tag.a{background:rgba(245,158,11,.16);color:#fbd38d}
+  .tag.r{background:rgba(239,68,68,.16);color:#fca5a5}
+  .tag.b{background:rgba(59,130,246,.16);color:#9dc4ff}
+  .tag.n{background:#22304a;color:#9fb0d0}
+
+  .step{display:flex;gap:14px;align-items:flex-start;background:var(--panel2);border:1px solid var(--line);
+        border-left:4px solid var(--brand);border-radius:12px;padding:13px 16px}
+  .step .i{width:26px;height:26px;flex:0 0 26px;border-radius:50%;background:var(--brand2);color:#fff;
+           display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin-top:1px}
+  .step .t{font-size:16.5px;font-weight:650;line-height:1.35}
+  .step .d{font-size:14px;color:var(--muted);margin-top:3px;line-height:1.45}
+  .step.wow{border-left-color:var(--amber);background:rgba(245,158,11,.07)}
+  .step.wow .i{background:#b4720c}
+
+  .banner{background:rgba(59,130,246,.09);border:1px solid #2a4a7a;border-radius:12px;padding:13px 16px;font-size:15px;color:#bcd2f2}
+  .banner.warn{background:rgba(245,158,11,.08);border-color:#7a5a20;color:#f3d9a8}
+  .say{background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:12px 16px;font-size:15px}
+  .say b{color:#9dc4ff}
+
+  .btn{background:var(--brand2);border:1px solid var(--brand);color:#fff;padding:11px 20px;border-radius:11px;
+       cursor:pointer;font-weight:650;font-size:15px;text-decoration:none;display:inline-block}
+  .btn.ghost{background:transparent;color:var(--txt);border-color:var(--line)}
+
+  .fill{border-bottom:1px dashed #6b7b9c;color:#fbd38d;padding:0 22px}
+
+  /* ---------- chân trang trong slide ---------- */
+  .foot{position:absolute;left:60px;right:60px;bottom:24px;display:flex;align-items:center;gap:14px;
+        font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+  .foot .sp{margin-left:auto}
+  .bar{position:absolute;left:0;top:0;height:3px;background:var(--brand);transition:width .3s}
+
+  /* ---------- thanh điều khiển ---------- */
+  #hud{position:fixed;left:0;right:0;bottom:0;display:flex;align-items:center;gap:10px;padding:9px 16px;
+       background:#05070ccc;border-top:1px solid var(--line);font-size:13px;color:var(--muted);z-index:40;backdrop-filter:blur(6px)}
+  #hud button{background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:8px;
+              padding:6px 12px;cursor:pointer;font-size:12.5px;font-weight:600}
+  #hud button:hover{border-color:var(--brand)}
+  #clock{font-variant-numeric:tabular-nums;font-size:17px;font-weight:700;color:var(--txt);min-width:64px}
+  #clock.over{color:#fca5a5}
+  #budget{font-variant-numeric:tabular-nums}
+  .dots{display:flex;gap:6px;margin-left:6px}
+  .dot{width:9px;height:9px;border-radius:50%;background:#2a3550;cursor:pointer}
+  .dot.on{background:var(--brand);transform:scale(1.25)}
+  .dot.past{background:#3c5a8a}
+
+  /* ---------- ghi chú người trình bày ---------- */
+  #notes{position:fixed;right:16px;bottom:52px;width:390px;max-height:58vh;overflow:auto;z-index:41;
+         background:#0b101accbb;background:#0b101af2;border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:none}
+  #notes.show{display:block}
+  #notes h4{margin:0 0 8px;font-size:13px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+  #notes .txt{font-size:14px;line-height:1.6}
+  #notes .txt b{color:#9dc4ff}
+
+  @media print{
+    html,body{overflow:visible;height:auto;background:#fff}
+    #hud,#notes{display:none !important}
+    #viewport{position:static;display:block}
+    #stage{transform:none !important;width:100%;height:auto;box-shadow:none;border-radius:0}
+    .slide{display:flex !important;position:relative;height:720px;page-break-after:always;border-bottom:1px solid #333}
+  }
+</style>
+</head>
+<body>
+
+<div id="viewport">
+<div id="stage">
+  <div class="bar" id="bar"></div>
+
+  <!-- ============ 1 · ĐỊNH VỊ ============ -->
+  <section class="slide active"
+    data-sec="20"
+    data-note="Việc duy nhất của slide này là <b>neo cảnh</b>: nghiệp vụ nào, khâu nào, ai làm, sản phẩm là gì. Không slogan, không giới thiệu tên nhóm dài dòng.<br><br>Nói đúng hai câu này rồi chuyển slide:<br>1. “Khoản vay <b>đã được phê duyệt</b>. Giải ngân là khâu khách hàng đề nghị lấy tiền ra, và ngân hàng phải kiểm tra bộ chứng từ <b>trước khi tiền được chuyển đi</b>.”<br>2. “Việc kiểm tra đó do <b>Maker và Checker</b> ở tác nghiệp tín dụng làm bằng mắt, trên một bộ <b>14 đến 19 tài liệu</b>. Chúng tôi làm trợ lý đọc và đối chiếu bộ hồ sơ đó trước.”<br><br>Chỉ tay vào ô sáng trên sơ đồ khi nói câu 2. Đừng đọc số liệu ở đây — để dành slide 2.">
+    <div class="eyebrow">AI Hackathon · MSB × GreenNode</div>
+    <h1>Trợ lý kiểm tra hồ sơ giải ngân</h1>
+    <p class="lead">Khoản vay đã được phê duyệt. <b style="color:var(--txt)">Giải ngân</b> là khâu khách hàng đề nghị lấy tiền ra,
+      và ngân hàng phải kiểm tra bộ chứng từ trước khi tiền được chuyển đi.
+      Trợ lý này <b style="color:var(--txt)">đọc và đối chiếu bộ hồ sơ đó trước</b>, để người kiểm tra bắt đầu từ một bản đối chiếu đã có.</p>
+    <div class="body" style="gap:22px">
+      <div>
+        <div class="eyebrow" style="font-size:11.5px;margin-bottom:10px">Chúng tôi can thiệp vào đúng một khâu</div>
+        <div class="chain">
+          <span class="n dim">Phê duyệt tín dụng</span><span class="a">→</span>
+          <span class="n dim">Đề nghị giải ngân</span><span class="a">→</span>
+          <span class="n on">Kiểm tra hồ sơ &amp; duyệt giải ngân<br><span class="sm muted" style="font-weight:500">Maker → Checker · tác nghiệp tín dụng</span></span><span class="a">→</span>
+          <span class="n dim">Chuyển tiền cho người thụ hưởng</span>
+        </div>
+      </div>
+      <div class="grid3">
+        <div class="card flat"><h3>Maker</h3><div class="def">Nhân sự tác nghiệp tín dụng <b>nhập và kiểm tra</b> bộ hồ sơ giải ngân trên hệ thống.</div></div>
+        <div class="card flat"><h3>Checker</h3><div class="def">Người <b>rà soát lại</b> toàn bộ trước khi hồ sơ đi tiếp lên cấp phê duyệt.</div></div>
+        <div class="card flat"><h3>Bộ hồ sơ</h3><div class="def"><b>14 – 19 mục tài liệu</b>: giấy nhận nợ, ủy nhiệm chi, hóa đơn, hợp đồng kinh tế, biên bản đối chiếu công nợ…</div></div>
+      </div>
+    </div>
+    <div class="foot"><span class="tag n">Dữ liệu hoàn toàn giả lập</span><span class="tag n">Con người quyết định</span><span class="tag n">Mọi phát hiện dẫn nguồn</span><span class="sp">Pitch 5 phút · 1 / 9</span></div>
+  </section>
+
+  <!-- ============ 2 · BÀI TOÁN + REACH ============ -->
+  <section class="slide"
+    data-sec="35"
+    data-note="Trục <b>Reach</b> và một phần <b>Confident</b>. Đọc thẳng 4 con số, không diễn giải thêm. Câu chốt: “364 giờ mỗi ngày, và gần một nửa hồ sơ phải quay lại.” Reach nói gọn trong một câu ở dải dưới.">
+    <div class="eyebrow">Bài toán · Reach</div>
+    <h2>364 giờ mỗi ngày dành cho việc đọc và đối chiếu hồ sơ</h2>
+    <div class="body">
+      <div class="grid4">
+        <div class="kpi cool"><div class="v">486</div><div class="u">hồ sơ / ngày</div><div class="lb">Hồ sơ giải ngân xử lý bình quân</div></div>
+        <div class="kpi warm"><div class="v">45</div><div class="u">phút / hồ sơ</div><div class="lb">Maker 25 phút + Checker 20 phút</div></div>
+        <div class="kpi hot"><div class="v">364</div><div class="u">giờ / ngày</div><div class="lb">≈ 91.000 giờ mỗi năm</div></div>
+        <div class="kpi hot"><div class="v">44<span class="u">%</span></div><div class="u">hồ sơ trả lại</div><div class="lb">≈ 214 hồ sơ/ngày quay lại vòng kiểm tra</div></div>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Khối lượng thao tác trên mỗi hồ sơ</h3>
+          <ul>
+            <li><b>14 – 19 mục tài liệu</b> phải kiểm tra, tùy loại giải ngân</li>
+            <li><b>18 loại giải ngân</b> × <b>3 vùng hồ sơ</b>, danh mục không cố định</li>
+            <li>Cùng một loại tài liệu bị yêu cầu ở nhiều mục — Maker phải tự nhận ra để không đòi khách nộp trùng</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Ai hưởng lợi, tần suất thế nào</h3>
+          <ul>
+            <li>Trực tiếp: <b>102 Maker/Checker</b> tác nghiệp tín dụng</li>
+            <li>Gián tiếp: khách hàng (thời gian chờ giải ngân), đơn vị kinh doanh</li>
+            <li>Tần suất: <b>hằng ngày</b>, ≈ <b>121.500 hồ sơ/năm</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span>Số liệu hiện trạng nghiệp vụ giải ngân</span><span class="sp">2 / 9</span></div>
+  </section>
+
+  <!-- ============ 3 · VÌ SAO CHƯA GIẢI QUYẾT ĐƯỢC ============ -->
+  <section class="slide"
+    data-sec="20"
+    data-note="Đây là slide xác lập <b>khoảng trống</b>. Một câu duy nhất cần nói: “Hệ thống chỉ biết có file hay không có file.” Đừng đi vào chi tiết mã checklist.">
+    <div class="eyebrow">Khoảng trống</div>
+    <h2>Quy tắc kiểm tra đã có. Việc đối chiếu thì vẫn thủ công.</h2>
+    <div class="body">
+      <div class="grid2">
+        <div class="card">
+          <h3><span class="tag g">Hệ thống đã làm được</span></h3>
+          <ul>
+            <li>Sinh checklist theo loại giải ngân và vùng hồ sơ — quy tắc đã chuẩn hóa, có mã checklist BPM và mã tài liệu ECM</li>
+            <li>Biết mục nào <b>đã có file</b>, mục nào chưa</li>
+          </ul>
+        </div>
+        <div class="card" style="border-color:#7a3a3a">
+          <h3><span class="tag r">Vẫn làm bằng mắt, 100% thủ công</span></h3>
+          <ul>
+            <li>File nộp có <b>đúng loại tài liệu</b> như đã khai hay không</li>
+            <li>Mục checklist nào <b>trùng nội dung</b> với mục khác</li>
+            <li><b>Thông tin giữa các tài liệu có khớp nhau</b> hay không</li>
+            <li>Hóa đơn này <b>đã dùng ở lần giải ngân trước</b> chưa</li>
+          </ul>
+        </div>
+      </div>
+      <div class="banner"><b>Hệ thống chỉ biết có file hay không có file.</b> Toàn bộ phần đọc nội dung và đối chiếu chéo giữa các tài liệu đang nằm trên vai Maker/Checker — đó là phần chiếm thời gian, và cũng là phần lặp lại, có quy tắc rõ.</div>
+    </div>
+    <div class="foot"><span>Vì sao đến giờ vẫn chưa xử lý được</span><span class="sp">3 / 9</span></div>
+  </section>
+
+  <!-- ============ 4 · GIẢI PHÁP + KHÁC BIỆT ============ -->
+  <section class="slide"
+    data-sec="30"
+    data-note="Nói 5 việc thật nhanh, đừng đọc hết chữ trên slide. Dành nhịp nhấn cho ô dưới: <b>“Đây không phải công cụ OCR.”</b> Câu này quyết định cách giám khảo phân loại sản phẩm.">
+    <div class="eyebrow">Giải pháp</div>
+    <h2>Trợ lý đọc trước bộ hồ sơ và chuẩn bị sẵn bản đối chiếu</h2>
+    <div class="body">
+      <div class="chain">
+        <span class="n">Nhận hồ sơ</span><span class="a">→</span>
+        <span class="n">Đối chiếu checklist</span><span class="a">→</span>
+        <span class="n">Đọc &amp; trích xuất</span><span class="a">→</span>
+        <span class="n">Đối chiếu chéo</span><span class="a">→</span>
+        <span class="n">Nêu điểm cần chú ý</span><span class="a">→</span>
+        <span class="n">Phân loại hồ sơ</span>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Năm việc trợ lý làm</h3>
+          <ul>
+            <li><b>Xác thực nội dung</b> file có đúng loại đã khai — không dựa vào tên file. Đây là <b>cửa chặn</b>: chưa xác thực được thì không trích xuất</li>
+            <li>Trích thông tin cần đối chiếu, <b>gắn độ tin cậy</b> theo loại chứng từ (bản số / ký số / scan)</li>
+            <li>Đối chiếu chéo: <span class="sm muted">Đề nghị ↔ UNC ↔ Hóa đơn ↔ Hợp đồng ↔ Điều kiện phê duyệt</span></li>
+            <li>Nêu điểm cần chú ý theo 4 mức <span class="tag g">🟢</span> <span class="tag a">🟡</span> <span class="tag r">🔴</span> <span class="tag n">⚪</span>, mỗi điểm <b>kèm dẫn nguồn</b></li>
+            <li>Phân loại mức độ cần chú ý của cả hồ sơ để sắp thứ tự xử lý</li>
+          </ul>
+        </div>
+        <div class="card" style="border-color:#7a5a20">
+          <h3><span class="tag a">Điểm khác biệt</span></h3>
+          <ul>
+            <li><b>Không phải công cụ OCR.</b> OCR chỉ chuyển tài liệu thành dữ liệu. Giá trị nằm ở bước sau: đối chiếu chéo theo quy tắc nghiệp vụ và chỉ ra điểm không khớp</li>
+            <li><b>Dùng lại quy tắc đã ban hành</b>, không tự suy ra — kết quả truy được về văn bản nghiệp vụ</li>
+            <li><b>Phát hiện được thứ Maker khó thấy bằng mắt</b>: hóa đơn đã dùng ở lần giải ngân trước, tài khoản thụ hưởng bị đổi so với hợp đồng</li>
+            <li><b>Biết chỗ mình không biết.</b> Tài liệu chưa xác thực được loại thì các nội dung phụ thuộc báo <span class="tag n">⚪ chưa kiểm tra được</span>, không báo khớp</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span>Trợ lý không kết luận hồ sơ có đủ điều kiện giải ngân</span><span class="sp">4 / 9</span></div>
+  </section>
+
+  <!-- ============ 5 · DEMO ============ -->
+  <section class="slide"
+    data-sec="110"
+    data-note="Khối dài nhất của bài — <b>110 giây</b>. Mở demo ở tab khác trước khi pitch, đừng bấm mở tại đây.<br><br>Thứ tự bắt buộc giữ: chênh số tiền → hóa đơn dùng lại → bảng lương 200 dòng → trường hợp không chắc.<br>Câu phải nói ở bước 2: <b>“Maker không phải tin trợ lý.”</b><br>Câu phải nói ở bước 5: <b>“Chỗ trợ lý không chắc, nó nói là không chắc — không báo khớp.”</b><br><br>Nếu tụt thời gian: cắt bước 4 trước, rồi bước 5. Không cắt bước 3.">
+    <div class="eyebrow">Demo trực tiếp · Confident</div>
+    <h2>Năm thứ cần thấy trong 110 giây</h2>
+    <div class="body" style="gap:11px;margin-top:18px">
+      <div class="step">
+        <div class="i">1</div><div>
+          <div class="t">Upload bộ hồ sơ P1 có sai lệch cài sẵn → kết quả trong dưới một phút</div>
+          <div class="d">Loại giải ngân: thanh toán hàng hóa, dịch vụ có hóa đơn. Checklist 16 mục, 3 vùng hồ sơ.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="i">2</div><div>
+          <div class="t"><span class="tag r">🔴</span> Chênh lệch số tiền → mở <b>hai trang tài liệu cạnh nhau</b>, khoanh đúng hai con số</div>
+          <div class="d">500.000.000 trên Đề nghị giải ngân so với 450.000.000 tổng hai hóa đơn. Câu phải nói: <b>Maker không phải tin trợ lý</b> — mỗi phát hiện đều chỉ tới tài liệu, trang, vị trí để tự xác nhận.</div>
+        </div>
+      </div>
+      <div class="step wow">
+        <div class="i">3</div><div>
+          <div class="t"><span class="tag r">🔴</span> Hóa đơn <b>đã được dùng ở lần giải ngân trước</b> trên cùng khoản vay</div>
+          <div class="d">Maker khó phát hiện bằng mắt vì phải tra lại lịch sử giải ngân. Đây là giá trị nằm ngoài phạm vi tiết kiệm thời gian — giá trị quản trị rủi ro.</div>
+        </div>
+      </div>
+      <div class="step wow">
+        <div class="i">4</div><div>
+          <div class="t">Hồ sơ P3 thanh toán lương: <b>bảng lương 200 dòng ↔ lô chuyển khoản 200 lệnh</b></div>
+          <div class="d">Trợ lý chỉ ra đúng 3 dòng lệch, và 1 tài khoản người hưởng trùng tài khoản của chính khách hàng vay. Đối chiếu 200 dòng bằng mắt là việc không làm được đầy đủ trong SLA.</div>
+        </div>
+      </div>
+      <div class="step" style="border-left-color:#7f8ba3">
+        <div class="i" style="background:#4a5670">5</div><div>
+          <div class="t">Và khi trợ lý <b>không chắc</b>: file khai là Giấy nhận nợ nhưng nội dung là loại khác</div>
+          <div class="d">Mục chuyển <span class="tag a">🟠 chưa xác thực được</span> → <b>không trích xuất</b> → 5 nội dung đối chiếu chuyển <span class="tag n">⚪ chưa kiểm tra được</span>, không báo khớp. Phần tổng hợp nói rõ độ phủ chỉ đạt một phần. Maker bấm xác nhận đúng loại thì chạy lại.</div>
+        </div>
+      </div>
+      <div class="row">
+        <a class="btn" id="openDemo" href="demo-giaingan%20-%20Copy.html" target="_blank" rel="noopener">▶ Mở bản demo</a>
+        <div class="say" style="flex:1">Bản 5 phút đã <b>cắt</b> hai nội dung: điểm 🔴 tài khoản thụ hưởng bị đổi so với hợp đồng, và màn hậu kiểm theo lô. Giữ lại để trả lời Q&amp;A.</div>
+      </div>
+    </div>
+    <div class="foot"><span>Luồng 1 — kiểm tra sơ bộ trước khi Maker xử lý</span><span class="sp">5 / 9</span></div>
+  </section>
+
+  <!-- ============ 6 · SỐ ĐO ĐỘ TIN CẬY ============ -->
+  <section class="slide"
+    data-sec="20"
+    data-note="Slide bản lề: có số đo ở đây thì con số Impact ở slide sau mới được tin. <b>Điền số thật</b> sau khi chạy trên bộ dữ liệu mock, đừng để trống khi pitch. Nhấn: chỉ số theo dõi sát nhất là <b>tỷ lệ cảnh báo sai</b>.">
+    <div class="eyebrow">Số đo · Confident</div>
+    <h2>Đo trên tập hồ sơ có sai lệch biết trước</h2>
+    <div class="body">
+      <table>
+        <thead><tr><th>Chỉ số</th><th class="num">Kết quả</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td>Tỷ lệ phát hiện đúng</td><td class="num"><span class="fill">&nbsp;</span> %</td><td class="muted sm">Hiệu quả phát hiện trên các lỗi đã cài sẵn</td></tr>
+          <tr class="hi"><td>Tỷ lệ bỏ sót</td><td class="num"><span class="fill">&nbsp;</span> %</td><td class="muted sm">Chỉ số quan trọng nhất về rủi ro</td></tr>
+          <tr class="hi"><td>Tỷ lệ cảnh báo sai</td><td class="num"><span class="fill">&nbsp;</span> %</td><td class="muted sm">Cảnh báo sai nhiều thì Maker bỏ qua toàn bộ kết quả</td></tr>
+          <tr><td>Nhận diện đúng loại tài liệu trong phạm vi checklist</td><td class="num"><span class="fill">&nbsp;</span> %</td><td class="muted sm">Đo đúng phần hệ thống hiện không kiểm tra được</td></tr>
+          <tr><td>Thời gian chạy một hồ sơ</td><td class="num"><span class="fill">&nbsp;</span> giây</td><td class="muted sm">Đủ nhanh để chạy tự động khi hồ sơ được submit</td></tr>
+        </tbody>
+      </table>
+      <div class="grid3">
+        <div class="card flat"><h3><span class="tag g">Nhóm 1 · Hồ sơ sạch</span></h3><div class="sm muted">Mọi thông tin khớp — dùng để đo tỷ lệ cảnh báo sai</div></div>
+        <div class="card flat"><h3><span class="tag r">Nhóm 2 · Sai lệch biết trước</span></h3><div class="sm muted">Lệch số tiền, sai người thụ hưởng, hóa đơn dùng lại, thiếu tài liệu, khai sai loại</div></div>
+        <div class="card flat"><h3><span class="tag a">Nhóm 3 · Tình huống biên</span></h3><div class="sm muted">Nhiều hóa đơn, giải ngân một phần, làm tròn, scan mờ, một tài liệu cho hai mục</div></div>
+      </div>
+    </div>
+    <div class="foot"><span class="tag a">Điền số đo thật trước khi pitch</span><span class="sp">6 / 9</span></div>
+  </section>
+
+  <!-- ============ 7 · IMPACT ============ -->
+  <section class="slide"
+    data-sec="40"
+    data-note="Trục <b>Impact</b>. Trình theo hướng <b>tăng năng lực xử lý</b>, tuyệt đối không nói giảm nhân sự. Phải tự nói ra: đây là <b>ước tính theo kịch bản</b>, mức thực tế đo bằng chạy song song ở Giai đoạn 1. Nếu bị hỏi AEV bằng tiền: cần đơn giá giờ công từ đơn vị, không tự đặt số.">
+    <div class="eyebrow">Impact</div>
+    <h2>Cùng nguồn lực, xử lý được nhiều hồ sơ hơn</h2>
+    <div class="body">
+      <div class="grid2">
+        <div class="card">
+          <h3>Nếu giảm thời gian kiểm tra mỗi hồ sơ</h3>
+          <table>
+            <thead><tr><th>Mức giảm</th><th class="num">Tiết kiệm / ngày</th><th class="num">Tiết kiệm / năm</th><th class="num">Năng lực xử lý</th></tr></thead>
+            <tbody>
+              <tr><td>20%</td><td class="num">73 giờ</td><td class="num">≈ 18.000 giờ</td><td class="num">607 hồ sơ <span class="muted">+25%</span></td></tr>
+              <tr class="hi"><td>30%</td><td class="num">109 giờ</td><td class="num">≈ 27.000 giờ</td><td class="num">694 hồ sơ +43%</td></tr>
+              <tr><td>40%</td><td class="num">146 giờ</td><td class="num">≈ 36.000 giờ</td><td class="num">810 hồ sơ <span class="muted">+67%</span></td></tr>
+            </tbody>
+          </table>
+          <div class="sm muted" style="margin-top:10px">Nền so sánh: 486 hồ sơ/ngày × 45 phút = 364 giờ/ngày.</div>
+        </div>
+        <div class="card" style="border-color:#2b6b43">
+          <h3><span class="tag g">Phần giá trị lớn nhất</span> Giảm tỷ lệ hồ sơ phải trả lại</h3>
+          <table>
+            <thead><tr><th>Tỷ lệ trả lại</th><th class="num">Hồ sơ tránh được vòng kiểm tra lại</th><th class="num">Giờ / ngày</th></tr></thead>
+            <tbody>
+              <tr><td>44% → 35%</td><td class="num">≈ 44 hồ sơ</td><td class="num">≈ 33 giờ</td></tr>
+              <tr class="hi"><td>44% → 30%</td><td class="num">≈ 68 hồ sơ</td><td class="num">≈ 51 giờ</td></tr>
+              <tr><td>44% → 25%</td><td class="num">≈ 92 hồ sơ</td><td class="num">≈ 69 giờ</td></tr>
+            </tbody>
+          </table>
+          <div class="sm muted" style="margin-top:10px">Mỗi hồ sơ đúng ngay lần đầu <b>loại bỏ cả một vòng kiểm tra</b>, không chỉ rút ngắn nó. Đồng thời rút ngắn thời gian giải ngân của khách hàng.</div>
+        </div>
+      </div>
+      <div class="banner warn">Các con số trên là <b>ước tính theo kịch bản</b>, dùng để định hướng mục tiêu. Mức giảm thực tế phải đo bằng chạy song song với quy trình hiện tại ở Giai đoạn 1. Quy ra tiền: AEV = số giờ tiết kiệm/năm × đơn giá giờ công — đơn giá cần lấy từ đơn vị.</div>
+    </div>
+    <div class="foot"><span>Trình theo hướng tăng năng lực xử lý, không phải giảm nhân sự</span><span class="sp">7 / 9</span></div>
+  </section>
+
+  <!-- ============ 8 · KIẾN TRÚC + NGUYÊN TẮC + MOCK ============ -->
+  <section class="slide"
+    data-sec="15"
+    data-note="Ba nội dung gộp một khối vì cùng phục vụ một mục đích: chứng minh nhóm hiểu giới hạn của mình. <b>Chủ động nói ra phần mock</b> — để giám khảo tự phát hiện thì mất điểm Confident. 20 giây, nói nhanh, đừng giải thích kiến trúc. 15 giây.">
+    <div class="eyebrow">Kiến trúc · Nguyên tắc vận hành</div>
+    <h2>Chạy trên GreenNode, và những gì chúng tôi nói rõ từ đầu</h2>
+    <div class="body">
+      <div class="chain">
+        <span class="n">Web dashboard</span><span class="a">→</span>
+        <span class="n">REST API</span><span class="a">→</span>
+        <span class="n">Agent trên <b>GreenNode AgentBase</b> — 7 bước Luồng 1</span><span class="a">→</span>
+        <span class="n"><b>GreenNode MaaS</b></span>
+      </div>
+      <div class="grid3">
+        <div class="card flat"><h3><span class="tag b">GLM 5.2</span></h3><div class="sm muted">Đối chiếu chéo, suy luận quan hệ giữa các tài liệu, sinh báo cáo</div></div>
+        <div class="card flat"><h3><span class="tag b">Qwen Flash 3.6</span></h3><div class="sm muted">Phân loại tài liệu, trích xuất thông tin từ bản số</div></div>
+        <div class="card flat"><h3><span class="tag n">Cấu hình nghiệp vụ</span></h3><div class="sm muted">Checklist theo loại giải ngân, từ điển tài liệu ECM, bộ quy tắc đối chiếu chéo</div></div>
+      </div>
+      <div class="grid2">
+        <div class="card" style="border-color:#7a5a20">
+          <h3><span class="tag a">Ba điều nói rõ từ đầu</span></h3>
+          <ul>
+            <li>Dữ liệu <b>hoàn toàn giả lập</b>, không dùng hồ sơ thật</li>
+            <li>Core/T24, ECM, BPM hạn mức, kho lịch sử giải ngân là <b>dữ liệu mô phỏng</b>. Phần agent và bộ quy tắc đối chiếu là <b>phần lõi thật</b></li>
+            <li>Trợ lý <b>không kết luận hồ sơ đủ điều kiện giải ngân</b> — thẩm quyền và trách nhiệm không thay đổi</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Nguyên tắc vận hành</h3>
+          <ul>
+            <li><b>Con người quyết định.</b> Không có trạng thái “trợ lý đã duyệt”, không bước nào trong luồng chờ trợ lý</li>
+            <li><b>Luôn dẫn nguồn.</b> Không phát hiện nào được nêu mà không chỉ ra tài liệu và vị trí gốc</li>
+            <li><b>Không tạo cảm giác an toàn giả.</b> Tài liệu mờ, không đọc được thì báo “chưa kiểm tra được”, không suy đoán</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span>Trợ lý không phải mắt xích bắt buộc — lỗi hoặc chậm thì Maker xử lý như hiện tại</span><span class="sp">8 / 9</span></div>
+  </section>
+
+  <!-- ============ 9 · CHỐT ============ -->
+  <section class="slide"
+    data-sec="10"
+    data-note="Đây mới là chỗ câu slogan có sức nặng — sau khi giám khảo đã thấy Maker/Checker phải làm gì. Đọc chậm, dừng một nhịp, mời Q&amp;A. Dòng lộ trình chỉ nói nếu còn thời gian — bản 5 phút đã cắt khối lộ trình. Chuẩn bị sẵn câu trả lời cho: “Đây có phải chỉ là OCR không?” và “Cảnh báo sai nhiều thì Maker bỏ qua hết?”">
+    <div class="eyebrow">Chốt</div>
+    <h2>Một loại giải ngân trước, rồi mở rộng theo đúng bộ quy tắc đã xây</h2>
+    <div class="body">
+      <div class="chain">
+        <span class="n">1 loại giải ngân<br><span class="sm muted">chạy song song, đo độ chính xác</span></span><span class="a">→</span>
+        <span class="n">12 loại thanh toán trong nước<br><span class="sm muted">đưa vào màn hình tác nghiệp</span></span><span class="a">→</span>
+        <span class="n">6 loại thanh toán quốc tế<br><span class="sm muted">và nghiệp vụ chứng từ khác</span></span>
+      </div>
+      <div class="quote" style="margin-top:24px">“Để trợ lý đọc và đối chiếu hồ sơ. Để Maker/Checker tập trung vào những gì thực sự cần nghiệp vụ và phán đoán.”</div>
+      <div class="row" style="margin-top:auto">
+        <div class="card flat" style="flex:1"><h3>Tầm nhìn</h3><div class="sm muted">Đưa việc kiểm tra lên phía trước — phát hiện thiếu sót ngay khi hồ sơ được nộp, để loại hẳn một vòng xử lý thay vì rút ngắn nó.</div></div>
+        <div class="card flat" style="flex:1"><h3>Xin cảm ơn</h3><div class="sm muted">Sẵn sàng cho phần Q&amp;A.</div></div>
+      </div>
+    </div>
+    <div class="foot"><span class="tag n">Reach 102 người · hằng ngày</span><span class="tag n">Impact ≈ 27.000 giờ/năm</span><span class="tag n">Confident demo chạy thật + số đo</span><span class="sp">9 / 9</span></div>
+  </section>
+</div>
+</div>
+
+<div id="notes"><h4>Ghi chú người trình bày</h4><div class="txt" id="noteTxt"></div></div>
+
+<div id="hud">
+  <button id="prev">← Trước</button>
+  <button id="next">Sau →</button>
+  <span id="pos">1 / 9</span>
+  <div class="dots" id="dots"></div>
+  <span class="sp"></span>
+  <span id="budget">mốc 0:10</span>
+  <span id="clock">0:00</span>
+  <button id="toggleTimer">▶ Chạy</button>
+  <button id="resetTimer">↺</button>
+  <button id="toggleNotes">Ghi chú (N)</button>
+  <button id="fs">Toàn màn hình (F)</button>
+</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var budgets = slides.map(function(s){ return parseInt(s.dataset.sec,10) || 30; });
+  var cum = budgets.reduce(function(acc,v){ acc.push((acc.length?acc[acc.length-1]:0)+v); return acc; }, []);
+  var total = cum[cum.length-1];
+  var idx = 0, elapsed = 0, running = false, tick = null;
+
+  var stage = document.getElementById('stage');
+  var bar = document.getElementById('bar');
+  var pos = document.getElementById('pos');
+  var dots = document.getElementById('dots');
+  var clock = document.getElementById('clock');
+  var budgetEl = document.getElementById('budget');
+  var notes = document.getElementById('notes');
+  var noteTxt = document.getElementById('noteTxt');
+
+  // ---- chấm điều hướng
+  slides.forEach(function(_,i){
+    var d = document.createElement('div');
+    d.className = 'dot';
+    d.title = 'Slide ' + (i+1);
+    d.addEventListener('click', function(){ go(i); });
+    dots.appendChild(d);
+  });
+
+  function fmt(s){
+    var m = Math.floor(s/60), r = s%60;
+    return m + ':' + (r<10?'0':'') + r;
+  }
+
+  function render(){
+    slides.forEach(function(s,i){ s.classList.toggle('active', i===idx); });
+    Array.prototype.forEach.call(dots.children, function(d,i){
+      d.className = 'dot' + (i===idx ? ' on' : (i<idx ? ' past' : ''));
+    });
+    pos.textContent = (idx+1) + ' / ' + slides.length;
+    bar.style.width = (cum[idx]/total*100) + '%';
+    budgetEl.textContent = 'mốc ' + fmt(cum[idx]) + ' · slide ' + budgets[idx] + 's';
+    noteTxt.innerHTML = slides[idx].dataset.note || '<span class="muted">Không có ghi chú.</span>';
+  }
+
+  function go(i){
+    idx = Math.max(0, Math.min(slides.length-1, i));
+    render();
+  }
+
+  // ---- đồng hồ: so với mốc lũy kế của slide đang trình bày
+  function paintClock(){
+    clock.textContent = fmt(elapsed);
+    clock.classList.toggle('over', elapsed > cum[idx]);
+  }
+  function setRunning(v){
+    running = v;
+    document.getElementById('toggleTimer').textContent = running ? '⏸ Dừng' : '▶ Chạy';
+    if (tick) { clearInterval(tick); tick = null; }
+    if (running) tick = setInterval(function(){ elapsed++; paintClock(); }, 1000);
+  }
+
+  document.getElementById('prev').addEventListener('click', function(){ go(idx-1); });
+  document.getElementById('next').addEventListener('click', function(){ go(idx+1); });
+  document.getElementById('toggleTimer').addEventListener('click', function(){ setRunning(!running); });
+  document.getElementById('resetTimer').addEventListener('click', function(){
+    setRunning(false); elapsed = 0; paintClock();
+  });
+  document.getElementById('toggleNotes').addEventListener('click', function(){ notes.classList.toggle('show'); });
+  document.getElementById('fs').addEventListener('click', function(){
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen();
+  });
+
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Enter'){ e.preventDefault(); go(idx+1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp'){ e.preventDefault(); go(idx-1); }
+    else if (k === 'Home'){ go(0); }
+    else if (k === 'End'){ go(slides.length-1); }
+    else if (k === 'n' || k === 'N'){ notes.classList.toggle('show'); }
+    else if (k === 'f' || k === 'F'){ document.getElementById('fs').click(); }
+    else if (k === 't' || k === 'T'){ setRunning(!running); }
+    else if (/^[1-9]$/.test(k)){ go(parseInt(k,10)-1); }
+  });
+
+  // ---- co sân khấu 1280x720 vừa cửa sổ
+  function fit(){
+    var pad = 24, hud = 46;
+    var w = window.innerWidth - pad*2;
+    var h = window.innerHeight - hud - pad*2;
+    var s = Math.min(w/1280, h/720);
+    stage.style.transform = 'scale(' + s + ')';
+  }
+  window.addEventListener('resize', fit);
+
+  fit(); render(); paintClock();
+})();
+</script>
+</body>
+</html>
