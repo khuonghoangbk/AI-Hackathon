@@ -1,0 +1,76 @@
+{
+  "ho_so_id": "P3_HS001",
+  "nhom": "co_sai_lech",
+  "ghi_chu_cai_san": "3 dòng lệch giữa bảng lương và lô chuyển khoản → DC-P23-06 🔴; 1 TK người hưởng trùng TK khách hàng vay → DC-P23-08 🔴; kỳ lương 2026-06 đã giải ngân → DC-P23-09 🔴",
+  "context": {
+    "loai_giai_ngan": "P3",
+    "limit_id": "LMT-P3-0001",
+    "so_tien_de_nghi": 495000000,
+    "ngay_de_nghi_gn": "2026-09-05"
+  },
+  "tai_lieu": [
+    {
+      "ma_checklist": "3471",
+      "voucher_type": "1",
+      "ten_file": "giay_nhan_no_p3.pdf",
+      "so_trang": 1,
+      "noi_dung_mo_phong": {
+        "so_tien": 495000000,
+        "loai_tien": "VND",
+        "ngay_nhan_no": "2026-09-05",
+        "limit_id": "LMT-P3-0001",
+        "ten_khach_hang": "CÔNG TY CỔ PHẦN SẢN XUẤT BÌNH MINH",
+        "muc_dich_su_dung_von": "Thanh toán lương tháng 06/2026",
+        "nguoi_ky": "TRẦN THỊ BÌNH"
+      }
+    },
+    {
+      "ma_checklist": "3472",
+      "voucher_type": "1",
+      "ten_file": "unc_p3.pdf",
+      "so_trang": 1,
+      "noi_dung_mo_phong": {
+        "so_tien": 495000000,
+        "ten_nguoi_thu_huong": "Chi lương theo lô",
+        "so_tk_thu_huong": "N/A",
+        "noi_dung_chuyen_tien": "Chi luong ky 06/2026",
+        "so_tk_trich_no": "1102000054321",
+        "ten_nguoi_chuyen": "CÔNG TY CỔ PHẦN SẢN XUẤT BÌNH MINH"
+      }
+    },
+    {
+      "ma_checklist": "3451",
+      "voucher_type": "4",
+      "ten_file": "bang_luong_062026.xlsx",
+      "so_trang": 5,
+      "noi_dung_mo_phong": {
+        "ky_luong": "2026-06",
+        "tong_luong_gross": 560000000,
+        "tong_giam_tru": 65000000,
+        "tong_thuc_nhan": 495000000,
+        "so_luong_nguoi": 202,
+        "nguoi_ky": "TRẦN THỊ BÌNH",
+        "danh_sach_chi_tiet_rut_gon": [
+          { "ten": "Lê Văn C", "so_tk": "1102000054321", "so_thuc_nhan": 12000000 },
+          { "ten": "Phạm Thị D", "so_tk": "9704000011111", "so_thuc_nhan": 8500000 },
+          { "ten": "Hoàng Văn E", "so_tk": "9704000022222", "so_thuc_nhan": 7500000 }
+        ]
+      }
+    },
+    {
+      "ma_checklist": "3453",
+      "voucher_type": "1",
+      "ten_file": "lo_chuyen_khoan_062026.pdf",
+      "so_trang": 4,
+      "noi_dung_mo_phong": {
+        "tong_so_tien_lo": 495000000,
+        "so_luong_lenh": 202,
+        "danh_sach_lenh_rut_gon": [
+          { "ten": "Lê Văn C", "so_tk": "1102000054321", "so_tien": 12000000 },
+          { "ten": "Phạm Thị D", "so_tk": "9704000011111", "so_tien": 9500000 },
+          { "ten": "Hoàng Văn E", "so_tk": "9704000033333", "so_tien": 7500000 }
+        ]
+      }
+    }
+  ]
+}

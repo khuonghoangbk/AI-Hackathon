@@ -1,0 +1,22 @@
+{
+  "loai_giai_ngan": "P3",
+  "ten": "Giải ngân thanh toán lương chuyển khoản",
+  "so_muc": 15,
+  "muc": [
+    { "ma_checklist": "3471", "vung": "ho_so_chung", "ten": "Giấy nhận nợ", "bat_buoc": "co" },
+    { "ma_checklist": "3472", "vung": "ho_so_chung", "ten": "UNC/Chứng từ thể hiện thanh toán", "bat_buoc": "co" },
+    { "ma_checklist": "34250", "vung": "ho_so_chung", "ten": "Hồ sơ chung khác", "bat_buoc": "dieu_kien" },
+    { "ma_checklist": "34245", "vung": "muc_dich_vay", "ten": "Hồ sơ khác", "bat_buoc": "dieu_kien" },
+    { "ma_checklist": "3451", "vung": "muc_dich_vay", "ten": "Bảng lương", "bat_buoc": "co" },
+    { "ma_checklist": "3453", "vung": "muc_dich_vay", "ten": "Hợp đồng chuyển khoản theo lô", "bat_buoc": "co" },
+    { "ma_checklist": "34246", "vung": "nguon_thu", "ten": "Hợp đồng trong nước/Hợp đồng ngoại thương", "bat_buoc": "dieu_kien" },
+    { "ma_checklist": "34247", "vung": "nguon_thu", "ten": "BCT xuất khẩu", "bat_buoc": "dieu_kien" },
+    { "ma_checklist": "34248", "vung": "nguon_thu", "ten": "Biên bản đối chiếu công nợ", "bat_buoc": "dieu_kien" },
+    { "ma_checklist": "34249", "vung": "nguon_thu", "ten": "Biên bản giao nhận hàng hóa", "bat_buoc": "dieu_kien" },
+    { "ma_checklist": "3475", "vung": "nguon_thu", "ten": "Phương án kinh doanh", "bat_buoc": "dieu_kien" },
+    { "ma_checklist": "3476", "vung": "nguon_thu", "ten": "Cam kết chuyển tiền về", "bat_buoc": "dieu_kien" },
+    { "ma_checklist": "3477", "vung": "nguon_thu", "ten": "Ủy quyền thu nợ", "bat_buoc": "dieu_kien" },
+    { "ma_checklist": "3478", "vung": "nguon_thu", "ten": "Đề nghị tài trợ", "bat_buoc": "dieu_kien" },
+    { "ma_checklist": "3479", "vung": "nguon_thu", "ten": "Hồ sơ nguồn thu khác", "bat_buoc": "dieu_kien" }
+  ]
+}

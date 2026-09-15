@@ -1,0 +1,27 @@
+{
+  "mo_ta": "Mô phỏng Core/T24 + BPM hạn mức. Khóa theo limit_id. Dữ liệu giả lập hoàn toàn.",
+  "khoan_vay": {
+    "LMT-P1-0001": {
+      "limit_id": "LMT-P1-0001",
+      "cif": "0012345678",
+      "ten_khach_hang": "CÔNG TY TNHH THƯƠNG MẠI AN PHÁT",
+      "mst": "0301234567",
+      "han_muc_kha_dung": 2000000000,
+      "ty_le_tai_tro_max": 0.8,
+      "ds_tk_theo_cif": ["1102000012345", "1102000067890"],
+      "ds_tk_khach_hang_va_lien_quan": ["1102000012345", "1102000067890", "1102000099999"],
+      "nguoi_dai_dien_uy_quyen": ["NGUYỄN VĂN AN"]
+    },
+    "LMT-P3-0001": {
+      "limit_id": "LMT-P3-0001",
+      "cif": "0087654321",
+      "ten_khach_hang": "CÔNG TY CỔ PHẦN SẢN XUẤT BÌNH MINH",
+      "mst": "0309876543",
+      "han_muc_kha_dung": 5000000000,
+      "ty_le_tai_tro_max": 1.0,
+      "ds_tk_theo_cif": ["1102000054321"],
+      "ds_tk_khach_hang_va_lien_quan": ["1102000054321", "1102000011111"],
+      "nguoi_dai_dien_uy_quyen": ["TRẦN THỊ BÌNH"]
+    }
+  }
+}

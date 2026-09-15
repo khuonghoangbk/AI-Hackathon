@@ -1,0 +1,71 @@
+{
+  "ho_so_id": "HS_SACH_001",
+  "mo_ta": "Nhom 1 - Ho so sach: moi thong tin khop, ky vong ra toan bo xanh",
+  "tai_lieu": [
+    {
+      "ma_checklist": "3471",
+      "voucher_type": "1",
+      "so_trang": 1,
+      "noi_dung": {
+        "tieu_de": "GIAY NHAN NO",
+        "so_tien": 450000000,
+        "loai_tien": "VND",
+        "ngay_nhan_no": "2026-09-01",
+        "ten_khach_hang": "Cong ty TNHH San Xuat Minh Anh",
+        "limit_id": "LMT-2026-0001"
+      }
+    },
+    {
+      "ma_checklist": "3472",
+      "voucher_type": "1",
+      "so_trang": 1,
+      "noi_dung": {
+        "tieu_de": "UY NHIEM CHI",
+        "so_tien": 450000000,
+        "nguoi_thu_huong": "Cong ty TNHH Thep Viet Duc",
+        "so_tai_khoan_thu_huong": "0123456789",
+        "noi_dung_thanh_toan": "Thanh toan tien mua thep theo HD 2026/MA-VD"
+      }
+    },
+    {
+      "ma_checklist": "34231",
+      "voucher_type": "1",
+      "so_trang": 3,
+      "noi_dung": {
+        "tieu_de": "HOP DONG KINH TE",
+        "ben_ban": "Cong ty TNHH Thep Viet Duc",
+        "ben_mua": "Cong ty TNHH San Xuat Minh Anh",
+        "gia_tri_hop_dong": 500000000,
+        "noi_dung_hang_hoa": "Thep xay dung cac loai"
+      }
+    },
+    {
+      "ma_checklist": "3455",
+      "voucher_type": "1",
+      "so_trang": 1,
+      "noi_dung": {
+        "tieu_de": "HOA DON GIA TRI GIA TANG",
+        "so_hoa_don": "00088888",
+        "ky_hieu": "1C26TVD",
+        "ngay_lap": "2026-08-28",
+        "mst_ben_ban": "0309999888",
+        "mst_ben_mua": "0301111222",
+        "ben_ban": "Cong ty TNHH Thep Viet Duc",
+        "ben_mua": "Cong ty TNHH San Xuat Minh Anh",
+        "tong_tien_thanh_toan": 450000000,
+        "noi_dung_hang_hoa": "Thep xay dung"
+      }
+    },
+    {
+      "ma_checklist": "3458",
+      "voucher_type": "1",
+      "so_trang": 1,
+      "noi_dung": {
+        "tieu_de": "BIEN BAN DOI CHIEU CONG NO",
+        "ben_ban": "Cong ty TNHH Thep Viet Duc",
+        "ben_mua": "Cong ty TNHH San Xuat Minh Anh",
+        "so_tien_cong_no": 450000000
+      }
+    }
+  ]
+}

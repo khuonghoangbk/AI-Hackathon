@@ -1,0 +1,6 @@
+{
+  "1": {"ten": "Ban so",            "do_tin_cay": "cao"},
+  "3": {"ten": "Ban ky so attach",  "do_tin_cay": "cao"},
+  "2": {"ten": "Ban attach vat ly", "do_tin_cay": "thap", "canh_bao": true},
+  "4": {"ten": "Ban mem attach",    "do_tin_cay": "tuy_chat_luong"}
+}

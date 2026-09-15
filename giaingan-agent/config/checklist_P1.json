@@ -1,0 +1,23 @@
+{
+  "loai_giai_ngan": "P1",
+  "ten": "Giải ngân thanh toán cho hàng hóa, dịch vụ có hóa đơn",
+  "muc": [
+    {"vung": "Ho so chung",      "ma_checklist": "3471",  "ten": "Giay nhan no",                                             "bat_buoc": "co"},
+    {"vung": "Ho so chung",      "ma_checklist": "3472",  "ten": "UNC/Chung tu the hien thanh toan",                         "bat_buoc": "co"},
+    {"vung": "Ho so chung",      "ma_checklist": "34250", "ten": "Ho so chung khac",                                         "bat_buoc": "dieu_kien"},
+    {"vung": "Muc dich vay",     "ma_checklist": "34245", "ten": "Ho so khac",                                               "bat_buoc": "dieu_kien"},
+    {"vung": "Muc dich vay",     "ma_checklist": "34231", "ten": "Hop dong kinh te/Don dat hang co xac nhan ben ban",        "bat_buoc": "co"},
+    {"vung": "Muc dich vay",     "ma_checklist": "3455",  "ten": "Hoa don",                                                  "bat_buoc": "co"},
+    {"vung": "Muc dich vay",     "ma_checklist": "3458",  "ten": "Bien ban doi chieu cong no/Giay de nghi thanh toan ben ban","bat_buoc": "co"},
+    {"vung": "Nguon thu",        "ma_checklist": "34246", "ten": "Hop dong trong nuoc/Hop dong ngoai thuong",                "bat_buoc": "dieu_kien"},
+    {"vung": "Nguon thu",        "ma_checklist": "34247", "ten": "BCT xuat khau",                                            "bat_buoc": "dieu_kien"},
+    {"vung": "Nguon thu",        "ma_checklist": "34248", "ten": "Bien ban doi chieu cong no",                              "bat_buoc": "dieu_kien", "cung_loai_voi": "3458"},
+    {"vung": "Nguon thu",        "ma_checklist": "34249", "ten": "Bien ban giao nhan hang hoa",                             "bat_buoc": "dieu_kien"},
+    {"vung": "Nguon thu",        "ma_checklist": "3475",  "ten": "Phuong an kinh doanh",                                     "bat_buoc": "dieu_kien"},
+    {"vung": "Nguon thu",        "ma_checklist": "3476",  "ten": "Cam ket chuyen tien ve",                                   "bat_buoc": "dieu_kien"},
+    {"vung": "Nguon thu",        "ma_checklist": "3477",  "ten": "Uy quyen thu no",                                          "bat_buoc": "dieu_kien"},
+    {"vung": "Nguon thu",        "ma_checklist": "3478",  "ten": "De nghi tai tro",                                          "bat_buoc": "dieu_kien"},
+    {"vung": "Nguon thu",        "ma_checklist": "3479",  "ten": "Ho so nguon thu khac",                                     "bat_buoc": "dieu_kien"}
+  ],
+  "ghi_chu": "Vung Nguon thu mac dinh la 'theo dieu kien phe duyet', KHONG bao thieu hang loat. Muc cung loai (3458<->34248) chi can 1 tai lieu thoa man ca hai."
+}

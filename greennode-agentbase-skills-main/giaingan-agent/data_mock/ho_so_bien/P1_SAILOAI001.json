@@ -1,0 +1,58 @@
+{
+  "ho_so_id": "P1_SAILOAI001",
+  "nhom": "bien_sai_loai",
+  "ghi_chu_cai_san": "File khai ở mục Giấy nhận nợ (3471) nhưng nội dung là Biên bản giao nhận hàng hóa → bước 3 ra 🟠, các quy tắc phụ thuộc 3471 (DC-C-01,02,03,09; DC-P1-01) ra ⚪, KHÔNG ra 🟢. Demo cơ chế cửa chặn mục 3.7.",
+  "context": {
+    "loai_giai_ngan": "P1",
+    "limit_id": "LMT-P1-0001",
+    "so_tien_de_nghi": 400000000,
+    "ngay_de_nghi_gn": "2026-09-03"
+  },
+  "tai_lieu": [
+    {
+      "ma_checklist": "3471",
+      "voucher_type": "2",
+      "ten_file": "giay_nhan_no.pdf",
+      "so_trang": 1,
+      "noi_dung_mo_phong": {
+        "_tieu_de_thuc_te": "BIÊN BẢN GIAO NHẬN HÀNG HÓA",
+        "ben_giao": "CÔNG TY TNHH THÉP VIỆT CƯỜNG",
+        "ben_nhan": "CÔNG TY TNHH THƯƠNG MẠI AN PHÁT",
+        "danh_muc_hang": "Thép xây dựng D10",
+        "ngay_giao": "2026-08-29"
+      }
+    },
+    {
+      "ma_checklist": "3472",
+      "voucher_type": "1",
+      "ten_file": "unc.pdf",
+      "so_trang": 1,
+      "noi_dung_mo_phong": {
+        "so_tien": 400000000,
+        "ten_nguoi_thu_huong": "CÔNG TY TNHH THÉP VIỆT CƯỜNG",
+        "so_tk_thu_huong": "1901000077777",
+        "noi_dung_chuyen_tien": "Thanh toan HD 00023456",
+        "so_tk_trich_no": "1102000012345",
+        "ten_nguoi_chuyen": "CÔNG TY TNHH THƯƠNG MẠI AN PHÁT"
+      }
+    },
+    {
+      "ma_checklist": "3455",
+      "voucher_type": "1",
+      "ten_file": "hoa_don.pdf",
+      "so_trang": 1,
+      "noi_dung_mo_phong": {
+        "so_hoa_don": "00023456",
+        "ky_hieu": "1C24TAP",
+        "ngay_lap": "2026-08-28",
+        "mst_ben_ban": "0311111111",
+        "ben_ban": "CÔNG TY TNHH THÉP VIỆT CƯỜNG",
+        "mst_ben_mua": "0301234567",
+        "ben_mua": "CÔNG TY TNHH THƯƠNG MẠI AN PHÁT",
+        "tong_tien_thanh_toan": 400000000,
+        "hinh_thuc_thanh_toan": "Chuyển khoản",
+        "so_tk_ben_ban": "1901000077777"
+      }
+    }
+  ]
+}

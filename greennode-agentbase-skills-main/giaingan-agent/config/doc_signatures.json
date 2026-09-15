@@ -1,0 +1,51 @@
+{
+  "3471": {
+    "ten": "Giấy nhận nợ",
+    "dau_hieu_nhan_dang": ["giấy nhận nợ", "khế ước nhận nợ", "hợp đồng tín dụng cụ thể"],
+    "truong_bat_buoc": ["so_tien", "loai_tien", "ngay_nhan_no", "ten_khach_hang", "limit_id"],
+    "truong_nen_co": ["muc_dich_su_dung_von", "nguoi_ky", "thoi_han_vay"],
+    "nguong_dat": { "diem_tin_cay_toi_thieu": 0.75, "so_truong_bat_buoc_toi_thieu": 4 }
+  },
+  "3472": {
+    "ten": "UNC/Chứng từ thể hiện thanh toán",
+    "dau_hieu_nhan_dang": ["ủy nhiệm chi", "lệnh chuyển tiền", "chứng từ thanh toán", "UNC"],
+    "truong_bat_buoc": ["so_tien", "ten_nguoi_thu_huong", "so_tk_thu_huong", "noi_dung_chuyen_tien"],
+    "truong_nen_co": ["ngan_hang_thu_huong", "so_tk_trich_no", "ten_nguoi_chuyen"],
+    "nguong_dat": { "diem_tin_cay_toi_thieu": 0.75, "so_truong_bat_buoc_toi_thieu": 3 }
+  },
+  "3455": {
+    "ten": "Hóa đơn",
+    "dau_hieu_nhan_dang": ["hóa đơn giá trị gia tăng", "hóa đơn bán hàng", "mẫu số", "ký hiệu"],
+    "truong_bat_buoc": ["so_hoa_don", "ngay_lap", "mst_ben_ban", "mst_ben_mua", "tong_tien_thanh_toan"],
+    "truong_nen_co": ["tien_truoc_thue", "tien_thue", "danh_muc_hang_hoa", "hinh_thuc_thanh_toan", "so_tk_ben_ban"],
+    "nguong_dat": { "diem_tin_cay_toi_thieu": 0.80, "so_truong_bat_buoc_toi_thieu": 4 }
+  },
+  "34231": {
+    "ten": "Hợp đồng kinh tế/Đơn đặt hàng có xác nhận bên bán",
+    "dau_hieu_nhan_dang": ["hợp đồng kinh tế", "đơn đặt hàng", "hợp đồng mua bán", "hợp đồng nguyên tắc"],
+    "truong_bat_buoc": ["so_hop_dong", "ngay_hop_dong", "ben_ban", "ben_mua", "gia_tri_hop_dong"],
+    "truong_nen_co": ["dieu_khoan_thanh_toan", "tien_do_thanh_toan", "tk_thu_huong_chi_dinh"],
+    "nguong_dat": { "diem_tin_cay_toi_thieu": 0.75, "so_truong_bat_buoc_toi_thieu": 4 }
+  },
+  "3458": {
+    "ten": "Biên bản đối chiếu công nợ/Giấy đề nghị thanh toán bên bán",
+    "dau_hieu_nhan_dang": ["biên bản đối chiếu công nợ", "giấy đề nghị thanh toán", "đối chiếu công nợ"],
+    "truong_bat_buoc": ["ky_doi_chieu", "so_cong_no_phai_tra", "xac_nhan_hai_ben"],
+    "truong_nen_co": ["danh_sach_hoa_don_tham_chieu"],
+    "nguong_dat": { "diem_tin_cay_toi_thieu": 0.75, "so_truong_bat_buoc_toi_thieu": 2 }
+  },
+  "3451": {
+    "ten": "Bảng lương",
+    "dau_hieu_nhan_dang": ["bảng lương", "bảng thanh toán tiền lương", "bảng chi lương"],
+    "truong_bat_buoc": ["ky_luong", "tong_thuc_nhan", "so_luong_nguoi", "danh_sach_chi_tiet"],
+    "truong_nen_co": ["tong_luong_gross", "tong_giam_tru", "nguoi_ky", "dau_xac_nhan"],
+    "nguong_dat": { "diem_tin_cay_toi_thieu": 0.75, "so_truong_bat_buoc_toi_thieu": 3 }
+  },
+  "3453": {
+    "ten": "Hợp đồng chuyển khoản theo lô",
+    "dau_hieu_nhan_dang": ["chuyển khoản theo lô", "chi lương theo lô", "danh sách chuyển khoản", "lệnh chi lô"],
+    "truong_bat_buoc": ["tong_so_tien_lo", "so_luong_lenh", "danh_sach_lenh"],
+    "truong_nen_co": ["ten_nguoi_huong", "so_tk", "ngan_hang", "so_tien"],
+    "nguong_dat": { "diem_tin_cay_toi_thieu": 0.75, "so_truong_bat_buoc_toi_thieu": 3 }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "mo_ta": "Kho lịch sử giải ngân — hóa đơn đã dùng theo limit_id. Có sẵn 1 case trùng để demo DC-P1-08.",
+  "theo_limit": {
+    "LMT-P1-0001": {
+      "ds_hoa_don_da_dung": [
+        { "so_hoa_don": "00012345", "ky_hieu": "1C24TAP", "ngay_lap": "2026-06-15", "so_tien": 300000000, "lan_gn": "GN-2026-06-0001" }
+      ],
+      "tong_hoa_don_luy_ke": 300000000
+    }
+  }
+}

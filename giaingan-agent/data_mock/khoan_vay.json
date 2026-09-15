@@ -1,0 +1,26 @@
+{
+  "HS_SACH_001": {
+    "limit_id": "LMT-2026-0001",
+    "khach_hang_vay": "Cong ty TNHH San Xuat Minh Anh",
+    "loai_giai_ngan": "P1",
+    "so_tien_de_nghi": 450000000,
+    "loai_tien": "VND",
+    "muc_dich_su_dung": "Thanh toan mua nguyen vat lieu thep"
+  },
+  "HS_SAILECH_001": {
+    "limit_id": "LMT-2026-0002",
+    "khach_hang_vay": "Cong ty CP Thuong Mai Hoang Gia",
+    "loai_giai_ngan": "P1",
+    "so_tien_de_nghi": 500000000,
+    "loai_tien": "VND",
+    "muc_dich_su_dung": "Thanh toan mua thiet bi van phong"
+  },
+  "HS_BIEN_001": {
+    "limit_id": "LMT-2026-0003",
+    "khach_hang_vay": "Cong ty TNHH Xuat Nhap Khau Dai Duong",
+    "loai_giai_ngan": "P1",
+    "so_tien_de_nghi": 800000000,
+    "loai_tien": "VND",
+    "muc_dich_su_dung": "Thanh toan mua hang hoa theo nhieu hoa don"
+  }
+}

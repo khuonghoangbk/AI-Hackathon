@@ -1,0 +1,12 @@
+{
+  "dung_sai_lam_tron_vnd": 1000,
+  "rules": [
+    {"id": "R1", "mo_ta": "So tien de nghi = So tien chi dan thanh toan",             "a": "so_tien_de_nghi",    "b": "so_tien_chi_dan_tt",   "op": "bang",                  "muc_khi_sai": "do"},
+    {"id": "R2", "mo_ta": "So tien de nghi khong vuot tong gia tri hoa don",          "a": "so_tien_de_nghi",    "b": "tong_gia_tri_hoa_don", "op": "khong_vuot",            "muc_khi_sai": "do"},
+    {"id": "R3", "mo_ta": "Nguoi thu huong trung ben ban tren hoa don",               "a": "nguoi_thu_huong",    "b": "ben_ban_hoa_don",      "op": "trung",                 "muc_khi_sai": "do"},
+    {"id": "R4", "mo_ta": "Khach hang vay trung ben mua tren hoa don",                "a": "khach_hang_vay",     "b": "ben_mua_hoa_don",      "op": "trung",                 "muc_khi_sai": "do"},
+    {"id": "R5", "mo_ta": "Tong hoa don khong vuot gia tri hop dong",                 "a": "gia_tri_hop_dong",   "b": "tong_gia_tri_hoa_don", "op": "hoa_don_khong_vuot_hd", "muc_khi_sai": "vang"},
+    {"id": "R6", "mo_ta": "Muc dich su dung phu hop noi dung hang hoa",               "a": "muc_dich_su_dung",   "b": "noi_dung_hang_hoa",    "op": "phu_hop",               "muc_khi_sai": "vang"},
+    {"id": "R7", "mo_ta": "Hoa don trong ho so khong trung lich su giai ngan",        "a": "hoa_don_trong_ho_so","b": "lich_su_giai_ngan",    "op": "khong_trung",           "muc_khi_sai": "do"}
+  ]
+}

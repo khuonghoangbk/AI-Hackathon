@@ -1,0 +1,10 @@
+{
+  "mo_ta": "Kho lịch sử kỳ lương đã giải ngân theo limit_id. Có sẵn 1 case trùng kỳ để demo DC-P23-09.",
+  "theo_limit": {
+    "LMT-P3-0001": {
+      "ds_ky_luong_da_gn": ["2026-05", "2026-06"],
+      "quy_luong_cac_ky_truoc": { "2026-05": 480000000, "2026-06": 495000000 },
+      "so_lao_dong_cac_ky_truoc": { "2026-05": 200, "2026-06": 202 }
+    }
+  }
+}

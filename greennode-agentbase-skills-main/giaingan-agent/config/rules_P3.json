@@ -1,0 +1,22 @@
+{
+  "loai_giai_ngan": "P3",
+  "mo_ta": "Quy tắc đối chiếu chéo DC-P23-xx áp cho P3 (thanh toán lương chuyển khoản). Trọng tâm: đối chiếu tập hợp bảng lương ↔ lô chuyển khoản.",
+  "rules": [
+    { "id": "DC-P23-01", "ten": "Số tiền GN không vượt tổng thực nhận bảng lương", "nguon_a": "3471.so_tien", "nguon_b": "3451.tong_thuc_nhan", "op": "khong_vuot", "dung_sai": "TOLERANCE_VND", "muc_khi_sai": "do", "phu_thuoc": ["3471", "3451"] },
+    { "id": "DC-P23-02", "ten": "Số học bảng lương: gross - giảm trừ = thực nhận", "nguon_a": "3451.gross_tru_giam_tru", "nguon_b": "3451.tong_thuc_nhan", "op": "bang", "dung_sai": "TOLERANCE_VND", "muc_khi_sai": "do", "phu_thuoc": ["3451"] },
+    { "id": "DC-P23-03", "ten": "Tổng bảng lương = cộng dồn từng dòng", "nguon_a": "3451.tong_thuc_nhan", "nguon_b": "3451.cong_don_tung_dong", "op": "bang", "dung_sai": "TOLERANCE_VND", "muc_khi_sai": "do", "phu_thuoc": ["3451"] },
+    { "id": "DC-P23-04", "ten": "Tổng lô chuyển khoản = tổng thực nhận", "nguon_a": "3453.tong_so_tien_lo", "nguon_b": "3451.tong_thuc_nhan", "op": "bang", "dung_sai": "TOLERANCE_VND", "muc_khi_sai": "do", "phu_thuoc": ["3453", "3451"] },
+    { "id": "DC-P23-05", "ten": "Số lệnh lô = số người bảng lương", "nguon_a": "3453.so_luong_lenh", "nguon_b": "3451.so_luong_nguoi", "op": "bang", "muc_khi_sai": "do", "phu_thuoc": ["3453", "3451"] },
+    { "id": "DC-P23-06", "ten": "Đối chiếu từng dòng bảng lương ↔ lô", "nguon_a": "3451.danh_sach_chi_tiet", "nguon_b": "3453.danh_sach_lenh", "op": "khop_tung_dong", "muc_khi_sai": "do", "phu_thuoc": ["3451", "3453"] },
+    { "id": "DC-P23-07", "ten": "Cảnh báo nhiều người cùng 1 TK nhận", "nguon_a": "3453.danh_sach_lenh.so_tk", "nguon_b": null, "op": "trung_noi_bo", "muc_khi_sai": "vang", "phu_thuoc": ["3453"] },
+    { "id": "DC-P23-08", "ten": "Tiền không quay về TK khách hàng vay/người liên quan", "nguon_a": "3453.danh_sach_lenh.so_tk", "nguon_b": "core.ds_tk_khach_hang_va_lien_quan", "op": "khong_trung", "muc_khi_sai": "do", "phu_thuoc": ["3453"], "nguon_ngoai": true },
+    { "id": "DC-P23-09", "ten": "Kỳ lương chưa được giải ngân trước đó", "nguon_a": "3451.ky_luong", "nguon_b": "history.ds_ky_luong_da_gn", "op": "khong_trung", "muc_khi_sai": "do", "phu_thuoc": ["3451"], "nguon_ngoai": true },
+    { "id": "DC-P23-10", "ten": "Độ mới của kỳ lương trong ngưỡng", "nguon_a": "3451.ky_luong", "nguon_b": "context.ngay_de_nghi_gn", "op": "trong_nguong_tuoi", "muc_khi_sai": "vang", "phu_thuoc": ["3451"] },
+    { "id": "DC-P23-11", "ten": "Biến động quỹ lương so với kỳ trước", "nguon_a": "3451.tong_thuc_nhan", "nguon_b": "history.quy_luong_cac_ky_truoc", "op": "trong_nguong_bien_dong", "muc_khi_sai": "vang", "phu_thuoc": ["3451"], "nguon_ngoai": true },
+    { "id": "DC-P23-12", "ten": "Biến động số lao động so với kỳ trước", "nguon_a": "3451.so_luong_nguoi", "nguon_b": "history.so_lao_dong_cac_ky_truoc", "op": "trong_nguong_bien_dong", "muc_khi_sai": "vang", "phu_thuoc": ["3451"], "nguon_ngoai": true },
+    { "id": "DC-P23-15", "ten": "Bảng lương ký đúng thẩm quyền", "nguon_a": "3451.nguoi_ky", "nguon_b": "core.nguoi_dai_dien_uy_quyen", "op": "trung_ten", "muc_khi_sai": "do", "phu_thuoc": ["3451"], "nguon_ngoai": true },
+    { "id": "DC-P23-16", "ten": "Mục đích sử dụng vốn là thanh toán lương", "nguon_a": "3471.muc_dich_su_dung_von", "nguon_b": "context.loai_giai_ngan", "op": "phu_hop", "muc_khi_sai": "do", "phu_thuoc": ["3471"] },
+    { "id": "DC-P23-17", "ten": "Nội dung UNC ghi rõ kỳ lương", "nguon_a": "3472.noi_dung_chuyen_tien", "nguon_b": "3451.ky_luong", "op": "dan_nguon", "muc_khi_sai": "vang", "phu_thuoc": ["3472", "3451"] },
+    { "id": "DC-P23-21", "ten": "Cảnh báo độ tin cậy bảng lương (voucherType=4)", "nguon_a": "3451.voucher_type", "nguon_b": null, "op": "kiem_do_tin_cay", "muc_khi_sai": "vang", "phu_thuoc": ["3451"] }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "ho_so_id": "P1_CLEAN001",
+  "nhom": "sach",
+  "ghi_chu_cai_san": "Mọi thông tin khớp — kỳ vọng toàn bộ ra 🟢. Dùng đo tỷ lệ cảnh báo sai.",
+  "context": {
+    "loai_giai_ngan": "P1",
+    "limit_id": "LMT-P1-0001",
+    "so_tien_de_nghi": 400000000,
+    "ngay_de_nghi_gn": "2026-09-02"
+  },
+  "tai_lieu": [
+    {
+      "ma_checklist": "3471",
+      "voucher_type": "1",
+      "ten_file": "giay_nhan_no.pdf",
+      "so_trang": 1,
+      "noi_dung_mo_phong": {
+        "so_tien": 400000000,
+        "loai_tien": "VND",
+        "ngay_nhan_no": "2026-09-02",
+        "limit_id": "LMT-P1-0001",
+        "ten_khach_hang": "CÔNG TY TNHH THƯƠNG MẠI AN PHÁT",
+        "muc_dich_su_dung_von": "Thanh toán tiền mua thép xây dựng",
+        "nguoi_ky": "NGUYỄN VĂN AN"
+      }
+    },
+    {
+      "ma_checklist": "3472",
+      "voucher_type": "1",
+      "ten_file": "unc.pdf",
+      "so_trang": 1,
+      "noi_dung_mo_phong": {
+        "so_tien": 400000000,
+        "ten_nguoi_thu_huong": "CÔNG TY TNHH THÉP VIỆT CƯỜNG",
+        "so_tk_thu_huong": "1901000077777",
+        "ngan_hang_thu_huong": "VCB",
+        "noi_dung_chuyen_tien": "Thanh toan HD 00023456 HDKT HD-2026/090",
+        "so_tk_trich_no": "1102000012345",
+        "ten_nguoi_chuyen": "CÔNG TY TNHH THƯƠNG MẠI AN PHÁT"
+      }
+    },
+    {
+      "ma_checklist": "34231",
+      "voucher_type": "1",
+      "ten_file": "hop_dong_kinh_te.pdf",
+      "so_trang": 3,
+      "noi_dung_mo_phong": {
+        "so_hop_dong": "HD-2026/090",
+        "ngay_hop_dong": "2026-08-25",
+        "ben_ban": "CÔNG TY TNHH THÉP VIỆT CƯỜNG",
+        "ben_mua": "CÔNG TY TNHH THƯƠNG MẠI AN PHÁT",
+        "gia_tri_hop_dong": 600000000,
+        "tk_thu_huong_chi_dinh": "1901000077777"
+      }
+    },
+    {
+      "ma_checklist": "3455",
+      "voucher_type": "1",
+      "ten_file": "hoa_don.pdf",
+      "so_trang": 1,
+      "noi_dung_mo_phong": {
+        "so_hoa_don": "00023456",
+        "ky_hieu": "1C24TAP",
+        "ngay_lap": "2026-08-28",
+        "mst_ben_ban": "0311111111",
+        "ben_ban": "CÔNG TY TNHH THÉP VIỆT CƯỜNG",
+        "mst_ben_mua": "0301234567",
+        "ben_mua": "CÔNG TY TNHH THƯƠNG MẠI AN PHÁT",
+        "tien_truoc_thue": 363636364,
+        "tien_thue": 36363636,
+        "tong_tien_thanh_toan": 400000000,
+        "danh_muc_hang_hoa": "Thép xây dựng D10, D12",
+        "hinh_thuc_thanh_toan": "Chuyển khoản",
+        "so_tk_ben_ban": "1901000077777"
+      }
+    },
+    {
+      "ma_checklist": "3458",
+      "voucher_type": "1",
+      "ten_file": "bien_ban_doi_chieu_cong_no.pdf",
+      "so_trang": 2,
+      "noi_dung_mo_phong": {
+        "ky_doi_chieu": "Tháng 08/2026",
+        "so_cong_no_phai_tra": 400000000,
+        "danh_sach_hoa_don_tham_chieu": ["00023456"],
+        "xac_nhan_hai_ben": true
+      }
+    }
+  ]
+}
