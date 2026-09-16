@@ -229,7 +229,7 @@ giaingan-agent/
 ├── data_mock/                     # dữ liệu giả lập
 │   ├── ho_so_sach/                # nhóm 1: không lỗi
 │   ├── ho_so_co_sai_lech/         # nhóm 2: lỗi cài sẵn
-│   ├── ho_so_bien/                # nhóm 3: tình huống biên
+│   ├── ho_so_dac_thu/             # nhóm 3: hồ sơ đặc thù
 │   ├── khoan_vay.json             # thông tin khoản vay mock
 │   └── lich_su_hoa_don.json       # có sẵn 1 hóa đơn trùng
 ├── agent/
@@ -306,7 +306,7 @@ Dashboard có thể deploy Vercel/Firebase, gọi vào endpoint agent (được 
 |---|---|---|
 | Hồ sơ sạch | Mọi thông tin khớp | Đo tỷ lệ cảnh báo sai (phải ra 🟢) |
 | Hồ sơ có sai lệch biết trước | Lệch số tiền (500tr vs 450tr), sai người thụ hưởng, **hóa đơn dùng lại**, thiếu biên bản đối chiếu công nợ, file khai sai loại | Chứng minh giá trị phát hiện |
-| Hồ sơ tình huống biên | Nhiều hóa đơn/1 lần GN, giải ngân một phần, làm tròn số, scan mờ, 1 tài liệu cho 2 mục checklist | Kiểm tra độ bền quy tắc |
+| Hồ sơ đặc thù | Nhiều hóa đơn/1 lần GN, giải ngân một phần, làm tròn số, scan mờ, 1 tài liệu cho 2 mục checklist | Kiểm tra độ bền quy tắc |
 
 Chỉ demo hồ sơ sạch thì không chứng minh được gì. Nhóm 2 và 3 là phần ăn điểm.
 

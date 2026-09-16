@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trợ lý kiểm tra hồ sơ giải ngân — Dashboard (gọi API thật)</title>
+<style>
+  :root{
+    --bg:#0f1420; --panel:#151c2c; --panel2:#1b2536; --line:#26324a;
+    --txt:#e6ecf7; --muted:#93a1bd; --brand:#3b82f6; --brand2:#2563eb;
+    --green:#22c55e; --amber:#f59e0b; --red:#ef4444; --chip:#22304a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--txt);font-size:14px;line-height:1.5}
+  header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,#0f1420,#0f1420ee);border-bottom:1px solid var(--line);padding:14px 22px;display:flex;align-items:center;gap:14px}
+  header h1{font-size:16px;margin:0;font-weight:650}
+  header .sub{color:var(--muted);font-size:12.5px}
+  .modewrap{margin-left:auto;display:flex;align-items:center;gap:10px}
+  .modewrap .lbl{font-size:12px;color:var(--muted)}
+  .switch{position:relative;display:inline-block;width:120px;height:30px}
+  .switch input{display:none}
+  .slider{position:absolute;inset:0;background:#22304a;border:1px solid var(--line);border-radius:999px;cursor:pointer;transition:.2s;display:flex;align-items:center;font-size:11.5px;font-weight:600}
+  .slider:before{content:"";position:absolute;height:22px;width:56px;left:3px;top:3px;background:var(--brand2);border-radius:999px;transition:.2s}
+  .slider .txt{position:absolute;width:56px;text-align:center;color:#fff;z-index:1;left:3px}
+  .slider .txt2{position:absolute;width:56px;text-align:center;color:var(--muted);z-index:1;right:3px}
+  input:checked + .slider:before{left:61px;background:#16a34a}
+  input:checked + .slider .txt{color:var(--muted);left:3px}
+  input:checked + .slider .txt2{color:#fff}
+  main{max-width:1180px;margin:0 auto;padding:20px}
+  .tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+  .tab{background:var(--panel);border:1px solid var(--line);color:var(--muted);padding:9px 16px;border-radius:10px;cursor:pointer;font-weight:550}
+  .tab.active{background:var(--brand2);border-color:var(--brand);color:#fff}
+  .view{display:none} .view.active{display:block}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
+  .card h2{font-size:14.5px;margin:0 0 4px}
+  .card .desc{color:var(--muted);font-size:12.5px;margin-bottom:14px}
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+  tr.req{cursor:pointer} tr.req:hover{background:var(--panel2)}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:600}
+  .pill.clean{background:rgba(34,197,94,.15);color:#7ee2a4}
+  .pill.warn{background:rgba(245,158,11,.15);color:#fbd38d}
+  .pill.risk{background:rgba(239,68,68,.15);color:#fca5a5}
+  .pill.trang{background:rgba(148,163,184,.15);color:#cbd5e1}
+  .pill.idle{background:#22304a;color:#9fb0d0}
+  .btn{background:var(--brand2);border:1px solid var(--brand);color:#fff;padding:9px 16px;border-radius:10px;cursor:pointer;font-weight:600;font-size:13px}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .btn.ghost{background:transparent;color:var(--txt);border-color:var(--line)}
+  .btn.sm{padding:5px 11px;font-size:12px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .muted{color:var(--muted)}
+  .back{color:var(--muted);cursor:pointer;font-size:13px;margin-bottom:10px;display:inline-block}
+  .back:hover{color:var(--txt)}
+  .finding{border:1px solid var(--line);border-left-width:4px;border-radius:10px;padding:12px 14px;margin-bottom:10px;background:var(--panel2)}
+  .finding.do{border-left-color:var(--red)} .finding.vang{border-left-color:var(--amber)}
+  .finding.xanh{border-left-color:var(--green)} .finding.chua_kiem_tra_duoc{border-left-color:#64748b}
+  .finding .h{font-weight:650;margin-bottom:3px}
+  .finding .src{font-size:12px;color:var(--muted);margin-top:6px}
+  .src a{color:#7dd3fc;cursor:pointer;text-decoration:underline dotted}
+  .doc{background:#fbfbfb;color:#1a2233;border-radius:8px;padding:14px;min-height:230px;font-size:12.5px}
+  .doc h4{margin:0 0 8px;font-size:13px;color:#0b3b8c}
+  .doc .row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed #d7dce6}
+  .doc .hl{background:#fff3bf;border-radius:4px;padding:0 4px;font-weight:700;box-shadow:0 0 0 2px #f59e0b inset}
+  .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+  .kpi .box{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px}
+  .kpi .v{font-size:22px;font-weight:700} .kpi .lb{font-size:11.5px;color:var(--muted)}
+  .disclaimer{background:rgba(59,130,246,.08);border:1px solid #2a4a7a;border-radius:10px;padding:12px 14px;font-size:12.5px;color:#bcd2f2;margin-top:14px}
+  .modal{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal.show{display:flex}
+  .modal .inner{background:var(--panel);border:1px solid var(--line);border-radius:14px;max-width:900px;width:100%;padding:20px}
+  .spinner{display:inline-block;width:14px;height:14px;border:2px solid #ffffff55;border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .toast{position:fixed;bottom:20px;right:20px;background:var(--red);color:#fff;padding:12px 16px;border-radius:10px;z-index:99;display:none;max-width:420px;font-size:13px}
+  .apibar{font-size:11.5px;color:var(--muted);margin-bottom:12px}
+  .apibar input{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:6px;padding:4px 8px;width:280px;font-size:11.5px}
+  code{background:var(--panel2);border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-size:12px}
+  .repl{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+  .repl-head{font-size:13px;margin-bottom:10px}
+  .repl-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+  .repl-list{font-size:12.5px}
+  .repl-list .fitem{display:flex;gap:8px;align-items:center;padding:4px 0;color:var(--txt)}
+  .repl-list .fitem .ma{color:#7dd3fc;font-weight:600}
+  .repl-list .fitem.bad{color:#fca5a5}
+  .report-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .report-col{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--panel2)}
+  .report-col .col-title{font-weight:650;font-size:13px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  @media(max-width:820px){.report-cols{grid-template-columns:1fr}}
+  .report-col table th,.report-col table td{padding:7px 8px;font-size:12px}
+  .report-col .finding{padding:10px 12px}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>🤖 Trợ lý kiểm tra hồ sơ giải ngân</h1>
+    <div class="sub">Dashboard gọi API thật — loại giải ngân P1 (thanh toán hàng hóa/dịch vụ có hóa đơn)</div>
+  </div>
+  <div class="modewrap">
+    <span class="lbl">Chế độ:</span>
+    <label class="switch" title="Mock: nhanh, offline. AI thật: gọi GreenNode GLM/Qwen (chậm hơn, cần key)">
+      <input type="checkbox" id="modeToggle" />
+      <span class="slider"><span class="txt">Mock</span><span class="txt2">AI thật</span></span>
+    </label>
+  </div>
+</header>
+
+<main>
+  <div class="apibar">
+    API: <input id="apiBase" value="http://localhost:8000" />
+    <span id="modeHint" class="muted"> · Đang dùng: <b>mock</b> (nhanh, không gọi LLM)</span>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-view="list">1 · Danh sách yêu cầu giải ngân</div>
+    <div class="tab" data-view="detail">2 · Chi tiết &amp; Kiểm tra sơ bộ (Luồng 1)</div>
+    <div class="tab" data-view="batch">3 · Hậu kiểm theo lô (Luồng 3)</div>
+  </div>
+
+  <!-- ===== VIEW 1: LIST ===== -->
+  <section class="view active" id="view-list">
+    <div class="card">
+      <h2>Hàng đợi giải ngân — TNTD (Maker/Checker)</h2>
+      <div class="desc">Mỗi dòng là một yêu cầu giải ngân. Bấm vào một dòng để mở chi tiết và chạy trợ lý.</div>
+      <table>
+        <thead><tr><th>Mã YCGN</th><th>Khách hàng</th><th>Loại giải ngân</th><th>Số tiền đề nghị</th><th>Số tài liệu</th><th>Kết quả trợ lý</th></tr></thead>
+        <tbody id="reqTable"><tr><td colspan="6" class="muted">Đang tải…</td></tr></tbody>
+      </table>
+      <div style="margin-top:12px"><button class="btn ghost sm" id="prefetchBtn">Chạy nhanh cả danh sách (batch) để hiện màu</button></div>
+      <div class="disclaimer">Trợ lý chạy bất đồng bộ, không phải mắt xích bắt buộc. Trợ lý lỗi/chậm thì Maker vẫn xử lý hồ sơ như quy trình hiện tại.</div>
+    </div>
+  </section>
+
+  <!-- ===== VIEW 2: DETAIL ===== -->
+  <section class="view" id="view-detail">
+    <span class="back" id="backToList">← Quay lại danh sách</span>
+    <div class="card" id="reqHeader"><div class="muted">Chọn một hồ sơ ở tab 1.</div></div>
+
+    <div class="card" id="runCard" style="display:none">
+      <div style="display:flex;gap:10px;align-items:center">
+        <button class="btn" id="runBtn">▶ Kiểm tra sơ bộ</button>
+        <span class="muted" id="runHint">Bấm để trợ lý chạy 7 bước của Luồng 1.</span>
+      </div>
+
+      <div class="repl">
+        <div class="repl-head">
+          <b>Hồ sơ thay thế / bổ sung (TNTD)</b>
+          <span class="muted"> · Chọn file <code>.json</code> để thay thế hoặc bổ sung tài liệu, ghép theo <code>mã checklist</code>. Hồ sơ gốc của KH không bị thay đổi.</span>
+        </div>
+        <div class="repl-actions">
+          <label class="btn ghost sm" for="replFile">📎 Chọn file .json…</label>
+          <input type="file" id="replFile" accept=".json,application/json" multiple style="display:none" />
+          <button class="btn sm" id="runReplBtn" disabled>▶ Kiểm tra sơ bộ trên hồ sơ thay thế</button>
+          <button class="btn ghost sm" id="clearReplBtn" style="display:none">Xóa file đã chọn</button>
+        </div>
+        <div id="replList" class="repl-list muted">Chưa có file thay thế nào được chọn.</div>
+        <span class="muted" id="runReplHint"></span>
+      </div>
+    </div>
+
+    <div class="card" id="docCard" style="display:none">
+      <h2>Phân loại tài liệu theo checklist (16 mục — P1)</h2>
+      <div class="desc">Trạng thái từng mục sau bước 3 (cửa chặn). 🟢 đã xác thực · 🟠 chưa xác thực được · 🔴 thiếu file bắt buộc.</div>
+      <table><thead><tr><th>Mã checklist</th><th>Tài liệu</th><th>Trạng thái</th><th>Lý do</th></tr></thead>
+      <tbody id="docTable"></tbody></table>
+    </div>
+
+    <div class="card" id="reportCard" style="display:none">
+      <h2>Kết quả kiểm tra sơ bộ</h2>
+      <div class="desc">So sánh kết quả trên hồ sơ gốc (KH đẩy lên) và hồ sơ sau khi TNTD thay thế/bổ sung.</div>
+      <div class="report-cols" id="reportCols">
+        <div class="report-col" id="colGoc">
+          <div class="col-title">📄 Hồ sơ gốc (KH đẩy lên)</div>
+          <div class="col-body muted">Bấm “Kiểm tra sơ bộ” để chạy trên hồ sơ gốc.</div>
+        </div>
+        <div class="report-col" id="colThayThe">
+          <div class="col-title">🔁 Hồ sơ sau thay thế (TNTD)</div>
+          <div class="col-body muted">Chọn file .json rồi bấm “Kiểm tra sơ bộ trên hồ sơ thay thế”.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VIEW 3: BATCH ===== -->
+  <section class="view" id="view-batch">
+    <div class="card">
+      <h2>Hậu kiểm theo lô — độ phủ 100%</h2>
+      <div class="desc">Chạy lại 7 bước trên toàn bộ hồ sơ, cho điểm rủi ro và xếp hạng.</div>
+      <button class="btn" id="batchBtn">▶ Chạy hậu kiểm lô</button>
+      <div id="batchResult" style="margin-top:16px;display:none">
+        <div class="kpi" id="batchKpi"></div>
+        <table><thead><tr><th>Hạng</th><th>Mã YCGN</th><th>Điểm rủi ro</th><th>Tóm tắt</th><th>Mức</th></tr></thead>
+        <tbody id="batchTable"></tbody></table>
+        <div class="disclaimer">Công cụ mở rộng độ phủ hậu kiểm, không phải công cụ tìm lỗi nhân viên.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="modal" id="modal">
+  <div class="inner">
+    <div style="display:flex;align-items:center;margin-bottom:12px">
+      <h2 style="margin:0" id="modalTitle">Đối chiếu — 2 trang tài liệu cạnh nhau</h2>
+      <button class="btn ghost sm" id="modalClose" style="margin-left:auto">Đóng ✕</button>
+    </div>
+    <div class="grid2" id="modalBody"></div>
+    <div class="disclaimer">Maker tự xác nhận bằng cách nhìn đúng vị trí được khoanh, không tin trợ lý một cách mù quáng.</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+{
+  "ho_so_id": "GN-2026-000476",
+  "mo_ta": "Nhóm 3 - Hồ sơ đặc thù: nhiều hóa đơn cho 1 lần giải ngân, giải ngân một phần, làm tròn số, scan mờ, 1 tài liệu dùng cho 2 mục checklist",
+  "tinh_huong_dac_thu": [
+    "Nhiều hóa đơn (3 hóa đơn) cho 1 lần giải ngân",
+    "Giải ngân một phần: đề nghị 800tr < tổng hóa đơn 810tr",
+    "Chênh lệch làm tròn ~999 VND (dưới ngưỡng dung sai 1000)",
+    "1 hóa đơn voucher_type=2 (scan mờ) -> hạ ngưỡng, gán độ tin cậy thấp",
+    "Biên bản đối chiếu công nợ dùng chung cho cả mục 3458 và 34248"
+  ],
+  "tai_lieu": [
+    {
+      "ma_checklist": "3471",
+      "voucher_type": "1",
+      "so_trang": 1,
+      "noi_dung": {
+        "tieu_de": "Giấy nhận nợ",
+        "so_tien": 800000000,
+        "loai_tien": "VND",
+        "ngay_nhan_no": "2026-09-10",
+        "ten_khach_hang": "Công ty TNHH Xuất Nhập Khẩu Đại Dương",
+        "limit_id": "LMT-2026-0003"
+      }
+    },
+    {
+      "ma_checklist": "3472",
+      "voucher_type": "1",
+      "so_trang": 1,
+      "noi_dung": {
+        "tieu_de": "Ủy nhiệm chi",
+        "so_tien": 800000000,
+        "nguoi_thu_huong": "Công ty TNHH Cung Ứng Biển Đông",
+        "so_tai_khoan_thu_huong": "0112233445",
+        "noi_dung_thanh_toan": "Thanh toán mua hàng theo 3 hóa đơn"
+      }
+    },
+    {
+      "ma_checklist": "34231",
+      "voucher_type": "1",
+      "so_trang": 4,
+      "noi_dung": {
+        "tieu_de": "Hợp đồng kinh tế",
+        "ben_ban": "Công ty TNHH Cung Ứng Biển Đông",
+        "ben_mua": "Công ty TNHH Xuất Nhập Khẩu Đại Dương",
+        "gia_tri_hop_dong": 900000000,
+        "noi_dung_hang_hoa": "Hàng hóa tổng hợp"
+      }
+    },
+    {
+      "ma_checklist": "3455",
+      "voucher_type": "1",
+      "so_trang": 1,
+      "ghi_chu_mock": "Hóa đơn 1 trong 3",
+      "noi_dung": {
+        "tieu_de": "Hóa đơn giá trị gia tăng",
+        "so_hoa_don": "00050001",
+        "ngay_lap": "2026-09-01",
+        "mst_ben_ban": "0306666777",
+        "mst_ben_mua": "0304444555",
+        "ben_ban": "Công ty TNHH Cung Ứng Biển Đông",
+        "ben_mua": "Công ty TNHH Xuất Nhập Khẩu Đại Dương",
+        "tong_tien_thanh_toan": 300000999,
+        "noi_dung_hang_hoa": "Hàng hóa tổng hợp"
+      }
+    },
+    {
+      "ma_checklist": "3455",
+      "voucher_type": "2",
+      "so_trang": 1,
+      "ghi_chu_mock": "Hóa đơn 2 trong 3 - bản scan mờ, độ tin cậy thấp",
+      "noi_dung": {
+        "tieu_de": "Hóa đơn giá trị gia tăng",
+        "so_hoa_don": "00050002",
+        "ngay_lap": "2026-09-02",
+        "mst_ben_ban": "0306666777",
+        "mst_ben_mua": "0304444555",
+        "ben_ban": "Công ty TNHH Cung Ứng Biển Đông",
+        "ben_mua": "Công ty TNHH Xuất Nhập Khẩu Đại Dương",
+        "tong_tien_thanh_toan": 260000000,
+        "noi_dung_hang_hoa": "Hàng hóa tổng hợp"
+      }
+    },
+    {
+      "ma_checklist": "3455",
+      "voucher_type": "1",
+      "so_trang": 1,
+      "ghi_chu_mock": "Hóa đơn 3 trong 3",
+      "noi_dung": {
+        "tieu_de": "Hóa đơn giá trị gia tăng",
+        "so_hoa_don": "00050003",
+        "ngay_lap": "2026-09-03",
+        "mst_ben_ban": "0306666777",
+        "mst_ben_mua": "0304444555",
+        "ben_ban": "Công ty TNHH Cung Ứng Biển Đông",
+        "ben_mua": "Công ty TNHH Xuất Nhập Khẩu Đại Dương",
+        "tong_tien_thanh_toan": 250000000,
+        "noi_dung_hang_hoa": "Hàng hóa tổng hợp"
+      }
+    },
+    {
+      "ma_checklist": "3458",
+      "voucher_type": "1",
+      "so_trang": 2,
+      "ghi_chu_mock": "Biên bản này thỏa mãn cả mục 3458 (mục đích vay) và 34248 (nguồn thu)",
+      "thoa_man_muc": ["3458", "34248"],
+      "noi_dung": {
+        "tieu_de": "Biên bản đối chiếu công nợ",
+        "ben_ban": "Công ty TNHH Cung Ứng Biển Đông",
+        "ben_mua": "Công ty TNHH Xuất Nhập Khẩu Đại Dương",
+        "so_tien_cong_no": 810000999
+      }
+    }
+  ]
+}

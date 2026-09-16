@@ -14,10 +14,12 @@ Ha nguong theo voucher_type: ban scan (2)/ban mem (4) doc kem hon.
 """
 from __future__ import annotations
 
+import json
 import unicodedata
 from typing import Any
 
 from .config_loader import load_checklist, load_doc_signatures, load_voucher_confidence
+from .llm_client import MOCK, get_client
 
 XANH = "xanh"
 CAM = "cam"
@@ -27,25 +29,62 @@ _HA_NGUONG_VOUCHER = {"2": 0.10, "4": 0.05}  # tru bot nguong tin cay
 
 
 def _norm(s: str) -> str:
+    # Chu 'd/D' khong duoc NFD tach dau (khong phai d + dau ket hop),
+    # nen phai thay thu cong truoc khi bo dau -> tranh 'hoa don' != 'hoa don'.
+    s = s.replace("đ", "d").replace("Đ", "D")
     s = unicodedata.normalize("NFD", s)
     s = "".join(c for c in s if unicodedata.category(c) != "Mn")
     return s.lower()
 
 
+def _diem_nhan_dang_live(noi_dung: dict, ten_loai: str, dau_hieu: list[str]) -> float:
+    """Nhan dang loai bang LLM (Qwen Flash). Tra ve diem tin cay 0..1.
+
+    Model doc noi dung tai lieu va cham diem xem co dung la loai '{ten_loai}' khong.
+    Neu goi that that bai / mode!=live -> tra -1 de caller fallback ve mock.
+    """
+    prompt = (
+        "Ban la bo phan hau kiem ho so ngan hang. Cho noi dung tai lieu (JSON) va "
+        f"loai ky vong '{ten_loai}' voi cac dau hieu nhan dang: {dau_hieu}.\n"
+        "Cham diem tin cay tu 0.0 den 1.0 the hien tai lieu co DUNG la loai nay khong. "
+        "Chi tra JSON dang {\"diem_tin_cay\": <so>, \"can_cu\": [\"...\"]}.\n\n"
+        f"Noi dung tai lieu:\n{json.dumps(noi_dung, ensure_ascii=False)}"
+    )
+    res = get_client().extract_json(prompt, fast=True, mode="live")
+    if not res or "diem_tin_cay" not in res:
+        return -1.0
+    try:
+        return float(res["diem_tin_cay"])
+    except (TypeError, ValueError):
+        return -1.0
+
+
 def _diem_nhan_dang(noi_dung: dict, dau_hieu: list[str]) -> float:
-    """Diem tin cay mock: ty le dau hieu xuat hien trong noi_dung."""
+    """Diem tin cay mock cho nhan dang loai tai lieu.
+
+    Nhan dang loai chi can khop MOT dau hieu dac trung (vd tieu de 'GIAY NHAN NO'
+    du de biet la Giay nhan no), khong doi khop het moi dau hieu. Vi vay:
+    - 1 dau hieu khop   -> 0.85 (dat nguong)
+    - >=2 dau hieu khop  -> 1.0
+    - 0 dau hieu khop    -> 0.0
+    So khop tren TOAN BO noi_dung (ke ca tieu_de).
+    """
     blob = _norm(" ".join(str(v) for v in noi_dung.values()))
     if not dau_hieu:
         return 0.0
     hit = sum(1 for d in dau_hieu if _norm(d) in blob)
-    return round(hit / len(dau_hieu), 2)
+    if hit == 0:
+        return 0.0
+    if hit == 1:
+        return 0.85
+    return 1.0
 
 
 def _dem_truong_bat_buoc(noi_dung: dict, truong: list[str]) -> int:
     return sum(1 for t in truong if noi_dung.get(t) not in (None, "", 0))
 
 
-def run(context: dict, docs: list[dict]) -> dict[str, Any]:
+def run(context: dict, docs: list[dict], mode: str = MOCK) -> dict[str, Any]:
     checklist = load_checklist()
     signatures = load_doc_signatures()
 
@@ -72,7 +111,7 @@ def run(context: dict, docs: list[dict]) -> dict[str, Any]:
                     "ten": muc["ten"],
                     "bat_buoc": muc["bat_buoc"],
                     "trang_thai": trang_thai,
-                    "ly_do": "Chua co file" if trang_thai == DO else "Muc dieu kien, chua nop - khong tinh thieu",
+                    "ly_do": "Chưa có file" if trang_thai == DO else "Mục điều kiện, chưa nộp - không tính thiếu",
                 }
             )
             continue
@@ -90,14 +129,19 @@ def run(context: dict, docs: list[dict]) -> dict[str, Any]:
                     "bat_buoc": muc["bat_buoc"],
                     "trang_thai": XANH,
                     "diem_tin_cay": None,
-                    "ly_do": "Khong co signature cau hinh, chap nhan theo khai bao",
+                    "ly_do": "Không có cấu hình nhận dạng, chấp nhận theo khai báo",
                     "doc_id": doc["doc_id"],
                 }
             )
             continue
 
         nguong = sig["nguong_dat"]
-        diem = _diem_nhan_dang(noi_dung, sig["dau_hieu_nhan_dang"])
+        # Nhan dang loai: live dung LLM cham diem; mock (hoac live that bai) dung so khop chuoi
+        diem = -1.0
+        if mode != MOCK:
+            diem = _diem_nhan_dang_live(noi_dung, sig["ten"], sig["dau_hieu_nhan_dang"])
+        if diem < 0:
+            diem = _diem_nhan_dang(noi_dung, sig["dau_hieu_nhan_dang"])
         so_truong = _dem_truong_bat_buoc(noi_dung, sig["truong_bat_buoc"])
 
         # Ha nguong theo voucher_type
@@ -109,18 +153,18 @@ def run(context: dict, docs: list[dict]) -> dict[str, Any]:
 
         if dat_nhan_dang and dat_cau_truc:
             trang_thai = XANH
-            ly_do = "Da xac thuc loai va cau truc"
+            ly_do = "Đã xác thực loại và cấu trúc"
         else:
             trang_thai = CAM
             muc_khong_xac_thuc.append(ma)
             ly_do_parts = []
             if not dat_nhan_dang:
                 ly_do_parts.append(
-                    f"khai la '{sig['ten']}' nhung dau hieu khong khop (diem {diem} < nguong {nguong_diem})"
+                    f"khai là '{sig['ten']}' nhưng dấu hiệu không khớp (điểm {diem} < ngưỡng {nguong_diem})"
                 )
             if not dat_cau_truc:
                 ly_do_parts.append(
-                    f"thieu truong bat buoc ({so_truong}/{nguong['so_truong_bat_buoc_toi_thieu']})"
+                    f"thiếu trường bắt buộc ({so_truong}/{nguong['so_truong_bat_buoc_toi_thieu']})"
                 )
             ly_do = "; ".join(ly_do_parts)
 

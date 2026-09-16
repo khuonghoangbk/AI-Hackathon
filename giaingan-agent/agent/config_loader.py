@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parent.parent
 CONFIG_DIR = ROOT / "config"
 DATA_DIR = ROOT / "data_mock"
 
-_HO_SO_DIRS = ["ho_so_sach", "ho_so_co_sai_lech", "ho_so_bien"]
+_HO_SO_DIRS = ["ho_so_sach", "ho_so_co_sai_lech", "ho_so_dac_thu"]
 
 
 def _read_json(path: Path) -> dict | list:

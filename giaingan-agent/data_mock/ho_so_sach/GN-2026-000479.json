@@ -1,17 +1,17 @@
 {
-  "ho_so_id": "HS_SACH_001",
-  "mo_ta": "Nhom 1 - Ho so sach: moi thong tin khop, ky vong ra toan bo xanh",
+  "ho_so_id": "GN-2026-000479",
+  "mo_ta": "Nhóm 1 - Hồ sơ sạch: mọi thông tin khớp, kỳ vọng ra toàn bộ xanh",
   "tai_lieu": [
     {
       "ma_checklist": "3471",
       "voucher_type": "1",
       "so_trang": 1,
       "noi_dung": {
-        "tieu_de": "GIAY NHAN NO",
+        "tieu_de": "Giấy nhận nợ",
         "so_tien": 450000000,
         "loai_tien": "VND",
         "ngay_nhan_no": "2026-09-01",
-        "ten_khach_hang": "Cong ty TNHH San Xuat Minh Anh",
+        "ten_khach_hang": "Công ty TNHH Sản Xuất Minh Anh",
         "limit_id": "LMT-2026-0001"
       }
     },
@@ -20,11 +20,11 @@
       "voucher_type": "1",
       "so_trang": 1,
       "noi_dung": {
-        "tieu_de": "UY NHIEM CHI",
+        "tieu_de": "Ủy nhiệm chi",
         "so_tien": 450000000,
-        "nguoi_thu_huong": "Cong ty TNHH Thep Viet Duc",
+        "nguoi_thu_huong": "Công ty TNHH Thép Việt Đức",
         "so_tai_khoan_thu_huong": "0123456789",
-        "noi_dung_thanh_toan": "Thanh toan tien mua thep theo HD 2026/MA-VD"
+        "noi_dung_thanh_toan": "Thanh toán tiền mua thép theo HD 2026/MA-VD"
       }
     },
     {
@@ -32,11 +32,11 @@
       "voucher_type": "1",
       "so_trang": 3,
       "noi_dung": {
-        "tieu_de": "HOP DONG KINH TE",
-        "ben_ban": "Cong ty TNHH Thep Viet Duc",
-        "ben_mua": "Cong ty TNHH San Xuat Minh Anh",
+        "tieu_de": "Hợp đồng kinh tế",
+        "ben_ban": "Công ty TNHH Thép Việt Đức",
+        "ben_mua": "Công ty TNHH Sản Xuất Minh Anh",
         "gia_tri_hop_dong": 500000000,
-        "noi_dung_hang_hoa": "Thep xay dung cac loai"
+        "noi_dung_hang_hoa": "Thép xây dựng các loại"
       }
     },
     {
@@ -44,16 +44,16 @@
       "voucher_type": "1",
       "so_trang": 1,
       "noi_dung": {
-        "tieu_de": "HOA DON GIA TRI GIA TANG",
+        "tieu_de": "Hóa đơn giá trị gia tăng",
         "so_hoa_don": "00088888",
         "ky_hieu": "1C26TVD",
         "ngay_lap": "2026-08-28",
         "mst_ben_ban": "0309999888",
         "mst_ben_mua": "0301111222",
-        "ben_ban": "Cong ty TNHH Thep Viet Duc",
-        "ben_mua": "Cong ty TNHH San Xuat Minh Anh",
+        "ben_ban": "Công ty TNHH Thép Việt Đức",
+        "ben_mua": "Công ty TNHH Sản Xuất Minh Anh",
         "tong_tien_thanh_toan": 450000000,
-        "noi_dung_hang_hoa": "Thep xay dung"
+        "noi_dung_hang_hoa": "Thép xây dựng"
       }
     },
     {
@@ -61,9 +61,9 @@
       "voucher_type": "1",
       "so_trang": 1,
       "noi_dung": {
-        "tieu_de": "BIEN BAN DOI CHIEU CONG NO",
-        "ben_ban": "Cong ty TNHH Thep Viet Duc",
-        "ben_mua": "Cong ty TNHH San Xuat Minh Anh",
+        "tieu_de": "Biên bản đối chiếu công nợ",
+        "ben_ban": "Công ty TNHH Thép Việt Đức",
+        "ben_mua": "Công ty TNHH Sản Xuất Minh Anh",
         "so_tien_cong_no": 450000000
       }
     }

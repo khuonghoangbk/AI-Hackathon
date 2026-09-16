@@ -3,9 +3,11 @@ Trich cac truong nghiep vu, gan do_tin_cay theo voucher_type.
 O mock: doc thang tu noi_dung tai lieu (mo phong ket qua LLM extract)."""
 from __future__ import annotations
 
+import json
 from typing import Any
 
-from .config_loader import load_voucher_confidence
+from .config_loader import load_doc_signatures, load_voucher_confidence
+from .llm_client import MOCK, get_client
 
 XANH = "xanh"
 
@@ -15,13 +17,44 @@ def _do_tin_cay(voucher_type: Any) -> str:
     return vc.get("do_tin_cay", "khong_ro")
 
 
-def run(context: dict, docs: list[dict], classify: dict) -> dict[str, Any]:
+def _extract_live(noi_dung: dict, ma_checklist: str) -> dict:
+    """Live: dung LLM (Qwen/GLM) trich cac truong bat buoc cua loai tai lieu tu noi_dung.
+    Tra ve dict cac truong da doc. Neu that bai -> tra {} de caller fallback ve mock
+    (doc thang noi_dung)."""
+    sig = load_doc_signatures().get(ma_checklist, {})
+    truong_can = sig.get("truong_bat_buoc", [])
+    if not truong_can:
+        return {}
+    prompt = (
+        "Ban la bo phan trich xuat thong tin tai lieu ngan hang. "
+        f"Tu noi dung tai lieu (JSON) duoi day, trich cac truong: {truong_can}. "
+        "Chi tra ve JSON gom dung cac truong do (gia tri so giu nguyen kieu so). "
+        "Neu khong tim thay truong nao thi bo qua truong do.\n\n"
+        f"Noi dung:\n{json.dumps(noi_dung, ensure_ascii=False)}"
+    )
+    res = get_client().extract_json(prompt, fast=True, mode="live")
+    return res if isinstance(res, dict) else {}
+
+
+def run(context: dict, docs: list[dict], classify: dict, mode: str = MOCK) -> dict[str, Any]:
     muc_xanh = {
         m["ma_checklist"] for m in classify["ket_qua_muc"] if m["trang_thai"] == XANH
     }
     docs_theo_muc: dict[str, list[dict]] = {}
     for d in docs:
         docs_theo_muc.setdefault(d["ma_checklist_khai"], []).append(d)
+
+    # Live: LLM trich truong tu noi_dung, merge lai (gia tri live uu tien khi co).
+    # Chi lam cho cac muc xanh. That bai -> giu nguyen noi_dung mock.
+    if mode != MOCK:
+        for ma, files in docs_theo_muc.items():
+            if ma not in muc_xanh:
+                continue
+            for doc in files:
+                live_fields = _extract_live(doc["noi_dung"], ma)
+                for k, v in live_fields.items():
+                    if v not in (None, "", 0):
+                        doc["noi_dung"][k] = v
 
     truong: dict[str, Any] = {}
     nguon: dict[str, dict] = {}

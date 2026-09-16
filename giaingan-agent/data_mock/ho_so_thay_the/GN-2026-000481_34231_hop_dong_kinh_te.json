@@ -1,0 +1,13 @@
+{
+  "ma_checklist": "34231",
+  "voucher_type": "1",
+  "so_trang": 3,
+  "ghi_chu_thay_the": "TNTD thay thế: khai đúng loại là Hợp đồng kinh tế (bản gốc khai sai loại, nội dung lại là hóa đơn). Giá trị hợp đồng 500tr (R5).",
+  "noi_dung": {
+    "tieu_de": "Hợp đồng kinh tế",
+    "ben_ban": "Công ty TNHH Thiết Bị XYZ",
+    "ben_mua": "Công ty CP Thương Mại Hoàng Gia",
+    "gia_tri_hop_dong": 500000000,
+    "noi_dung_hang_hoa": "Thiết bị văn phòng"
+  }
+}

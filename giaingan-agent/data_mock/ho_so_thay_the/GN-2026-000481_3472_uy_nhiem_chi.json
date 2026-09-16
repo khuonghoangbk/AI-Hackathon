@@ -1,0 +1,13 @@
+{
+  "ma_checklist": "3472",
+  "voucher_type": "1",
+  "so_trang": 1,
+  "ghi_chu_thay_the": "TNTD thay thế Ủy nhiệm chi: sửa số tiền 500tr (R1) và đúng người thụ hưởng trùng bên bán hóa đơn (R3).",
+  "noi_dung": {
+    "tieu_de": "Ủy nhiệm chi",
+    "so_tien": 500000000,
+    "nguoi_thu_huong": "Công ty TNHH Thiết Bị XYZ",
+    "so_tai_khoan_thu_huong": "0987654321",
+    "noi_dung_thanh_toan": "Thanh toán tiền thiết bị văn phòng"
+  }
+}
