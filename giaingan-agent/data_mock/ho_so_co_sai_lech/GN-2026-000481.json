@@ -1,0 +1,67 @@
+{
+  "ho_so_id": "GN-2026-000481",
+  "mo_ta": "Nhóm 2 - Hồ sơ có sai lệch biết trước: lệch số tiền (500tr vs 450tr), sai người thụ hưởng, hóa đơn đã dùng lại, thiếu biên bản đối chiếu công nợ, 1 file khai sai loại",
+  "loi_cai_san": [
+    "R1: số tiền đề nghị 500tr != số tiền chỉ dẫn thanh toán 450tr (đỏ)",
+    "R3: người thụ hưởng không trùng bên bán hóa đơn (đỏ)",
+    "R7: hóa đơn 00012345 đã dùng ở lần giải ngân trước (đỏ)",
+    "Thiếu ma_checklist 3458 (biên bản đối chiếu công nợ)",
+    "File khai ma_checklist 34231 nhưng nội dung là hóa đơn -> ra cam, R5/R6 phụ thuộc ra trang"
+  ],
+  "tai_lieu": [
+    {
+      "ma_checklist": "3471",
+      "voucher_type": "1",
+      "so_trang": 1,
+      "noi_dung": {
+        "tieu_de": "Giấy nhận nợ",
+        "so_tien": 500000000,
+        "loai_tien": "VND",
+        "ngay_nhan_no": "2026-09-05",
+        "ten_khach_hang": "Công ty CP Thương Mại Hoàng Gia",
+        "limit_id": "LMT-2026-0002"
+      }
+    },
+    {
+      "ma_checklist": "3472",
+      "voucher_type": "1",
+      "so_trang": 1,
+      "noi_dung": {
+        "tieu_de": "Ủy nhiệm chi",
+        "so_tien": 450000000,
+        "nguoi_thu_huong": "Công ty TNHH Thiết Bị ABC",
+        "so_tai_khoan_thu_huong": "0987654321",
+        "noi_dung_thanh_toan": "Thanh toán tiền thiết bị"
+      }
+    },
+    {
+      "ma_checklist": "34231",
+      "voucher_type": "2",
+      "so_trang": 1,
+      "ghi_chu_mock": "File này khai là Hợp đồng kinh tế nhưng nội dung thực tế là một hóa đơn -> khai sai loại",
+      "noi_dung": {
+        "tieu_de": "Hóa đơn giá trị gia tăng",
+        "so_hoa_don": "00077777",
+        "mst_ben_ban": "0305555444",
+        "tong_tien_thanh_toan": 480000000
+      }
+    },
+    {
+      "ma_checklist": "3455",
+      "voucher_type": "1",
+      "so_trang": 1,
+      "noi_dung": {
+        "tieu_de": "Hóa đơn giá trị gia tăng",
+        "so_hoa_don": "00012345",
+        "ky_hieu": "1C26TMA",
+        "ngay_lap": "2026-08-20",
+        "mst_ben_ban": "0301234567",
+        "mst_ben_mua": "0302222333",
+        "ben_ban": "Công ty TNHH Thiết Bị XYZ",
+        "ben_mua": "Công ty CP Thương Mại Hoàng Gia",
+        "tong_tien_thanh_toan": 450000000,
+        "noi_dung_hang_hoa": "Thiết bị văn phòng"
+      }
+    }
+  ]
+}

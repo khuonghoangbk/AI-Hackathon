@@ -1,0 +1,32 @@
+{
+  "3471": {
+    "ten": "Giấy nhận nợ",
+    "dau_hieu_nhan_dang": ["giay nhan no", "khe uoc nhan no", "hop dong tin dung cu the"],
+    "truong_bat_buoc": ["so_tien", "loai_tien", "ngay_nhan_no", "ten_khach_hang", "limit_id"],
+    "nguong_dat": {"diem_tin_cay_toi_thieu": 0.75, "so_truong_bat_buoc_toi_thieu": 4}
+  },
+  "3472": {
+    "ten": "UNC/Chứng từ thể hiện thanh toán",
+    "dau_hieu_nhan_dang": ["uy nhiem chi", "lenh chuyen tien", "chi dan thanh toan"],
+    "truong_bat_buoc": ["so_tien", "nguoi_thu_huong", "so_tai_khoan_thu_huong", "noi_dung_thanh_toan"],
+    "nguong_dat": {"diem_tin_cay_toi_thieu": 0.75, "so_truong_bat_buoc_toi_thieu": 3}
+  },
+  "34231": {
+    "ten": "Hợp đồng kinh tế/Đơn đặt hàng",
+    "dau_hieu_nhan_dang": ["hop dong kinh te", "don dat hang", "hop dong mua ban", "xac nhan ben ban"],
+    "truong_bat_buoc": ["ben_ban", "ben_mua", "gia_tri_hop_dong", "noi_dung_hang_hoa"],
+    "nguong_dat": {"diem_tin_cay_toi_thieu": 0.78, "so_truong_bat_buoc_toi_thieu": 3}
+  },
+  "3455": {
+    "ten": "Hóa đơn",
+    "dau_hieu_nhan_dang": ["hoa don gia tri gia tang", "hoa don ban hang", "mau so", "ky hieu"],
+    "truong_bat_buoc": ["so_hoa_don", "ngay_lap", "mst_ben_ban", "mst_ben_mua", "tong_tien_thanh_toan"],
+    "nguong_dat": {"diem_tin_cay_toi_thieu": 0.80, "so_truong_bat_buoc_toi_thieu": 4}
+  },
+  "3458": {
+    "ten": "Biên bản đối chiếu công nợ/Giấy đề nghị thanh toán bên bán",
+    "dau_hieu_nhan_dang": ["bien ban doi chieu cong no", "giay de nghi thanh toan", "cong no"],
+    "truong_bat_buoc": ["ben_ban", "ben_mua", "so_tien_cong_no"],
+    "nguong_dat": {"diem_tin_cay_toi_thieu": 0.75, "so_truong_bat_buoc_toi_thieu": 2}
+  }
+}

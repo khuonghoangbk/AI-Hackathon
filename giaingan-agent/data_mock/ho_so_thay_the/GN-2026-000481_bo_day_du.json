@@ -1,0 +1,71 @@
+{
+  "ho_so_id": "GN-2026-000481",
+  "mo_ta": "Bộ hồ sơ thay thế/bổ sung đầy đủ cho GN-2026-000481. Chọn 1 file này để thay thế toàn bộ chứng từ lỗi cùng lúc (thay cho việc chọn 5 file lẻ). Kỳ vọng: sau khi kiểm tra sơ bộ -> hồ sơ sạch (7/7 xanh).",
+  "tai_lieu": [
+    {
+      "ma_checklist": "3471",
+      "voucher_type": "1",
+      "so_trang": 1,
+      "noi_dung": {
+        "tieu_de": "Giấy nhận nợ",
+        "so_tien": 500000000,
+        "loai_tien": "VND",
+        "ngay_nhan_no": "2026-09-05",
+        "ten_khach_hang": "Công ty CP Thương Mại Hoàng Gia",
+        "limit_id": "LMT-2026-0002"
+      }
+    },
+    {
+      "ma_checklist": "3472",
+      "voucher_type": "1",
+      "so_trang": 1,
+      "noi_dung": {
+        "tieu_de": "Ủy nhiệm chi",
+        "so_tien": 500000000,
+        "nguoi_thu_huong": "Công ty TNHH Thiết Bị XYZ",
+        "so_tai_khoan_thu_huong": "0987654321",
+        "noi_dung_thanh_toan": "Thanh toán tiền thiết bị văn phòng"
+      }
+    },
+    {
+      "ma_checklist": "34231",
+      "voucher_type": "1",
+      "so_trang": 3,
+      "noi_dung": {
+        "tieu_de": "Hợp đồng kinh tế",
+        "ben_ban": "Công ty TNHH Thiết Bị XYZ",
+        "ben_mua": "Công ty CP Thương Mại Hoàng Gia",
+        "gia_tri_hop_dong": 500000000,
+        "noi_dung_hang_hoa": "Thiết bị văn phòng"
+      }
+    },
+    {
+      "ma_checklist": "3455",
+      "voucher_type": "1",
+      "so_trang": 1,
+      "noi_dung": {
+        "tieu_de": "Hóa đơn giá trị gia tăng",
+        "so_hoa_don": "00099999",
+        "ky_hieu": "1C26TXZ",
+        "ngay_lap": "2026-09-02",
+        "mst_ben_ban": "0301234567",
+        "mst_ben_mua": "0302222333",
+        "ben_ban": "Công ty TNHH Thiết Bị XYZ",
+        "ben_mua": "Công ty CP Thương Mại Hoàng Gia",
+        "tong_tien_thanh_toan": 500000000,
+        "noi_dung_hang_hoa": "Thiết bị văn phòng"
+      }
+    },
+    {
+      "ma_checklist": "3458",
+      "voucher_type": "1",
+      "so_trang": 1,
+      "noi_dung": {
+        "tieu_de": "Biên bản đối chiếu công nợ",
+        "ben_ban": "Công ty TNHH Thiết Bị XYZ",
+        "ben_mua": "Công ty CP Thương Mại Hoàng Gia",
+        "so_tien_cong_no": 500000000
+      }
+    }
+  ]
+}

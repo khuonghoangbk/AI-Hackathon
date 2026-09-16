@@ -1,0 +1,13 @@
+.env
+.greennode.json
+.agentbase/
+.agentbase-state.json
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+.next/
+dist/
+build/
+*.log

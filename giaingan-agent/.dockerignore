@@ -1,0 +1,32 @@
+# Bi mat & moi truong — TUYET DOI khong dua vao image
+.env
+.env.*
+!.env.example
+
+# Trang thai do wizard AgentBase sinh — khong dong goi
+.agentbase-state.json
+.greennode.json
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Node / web build (neu web build rieng)
+node_modules/
+.next/
+dist/
+
+# Test/CI phu tro
+_test_*.py
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+
+# Git
+.git/
+.gitignore

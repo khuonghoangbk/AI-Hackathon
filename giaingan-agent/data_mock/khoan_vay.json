@@ -1,0 +1,26 @@
+{
+  "GN-2026-000479": {
+    "limit_id": "LMT-2026-0001",
+    "khach_hang_vay": "Công ty TNHH Sản Xuất Minh Anh",
+    "loai_giai_ngan": "P1",
+    "so_tien_de_nghi": 450000000,
+    "loai_tien": "VND",
+    "muc_dich_su_dung": "Thanh toán mua nguyên vật liệu thép"
+  },
+  "GN-2026-000481": {
+    "limit_id": "LMT-2026-0002",
+    "khach_hang_vay": "Công ty CP Thương Mại Hoàng Gia",
+    "loai_giai_ngan": "P1",
+    "so_tien_de_nghi": 500000000,
+    "loai_tien": "VND",
+    "muc_dich_su_dung": "Thanh toán mua thiết bị văn phòng"
+  },
+  "GN-2026-000476": {
+    "limit_id": "LMT-2026-0003",
+    "khach_hang_vay": "Công ty TNHH Xuất Nhập Khẩu Đại Dương",
+    "loai_giai_ngan": "P1",
+    "so_tien_de_nghi": 800000000,
+    "loai_tien": "VND",
+    "muc_dich_su_dung": "Thanh toán mua hàng hóa theo nhiều hóa đơn"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "loai_giai_ngan": "P1",
+  "mo_ta": "Quy tắc đối chiếu chéo DC-P1-xx cho giải ngân thanh toán hàng hóa/dịch vụ có hóa đơn.",
+  "rules": [
+    { "id": "DC-P1-01", "ten": "Số tiền GN không vượt tổng hóa đơn", "nguon_a": "3471.so_tien", "nguon_b": "3455.tong_tien_thanh_toan_cong_don", "op": "khong_vuot", "dung_sai": "TOLERANCE_VND", "muc_khi_sai": "do", "phu_thuoc": ["3471", "3455"] },
+    { "id": "DC-P1-02", "ten": "Tỷ lệ tài trợ không vượt phê duyệt", "nguon_a": "3471.so_tien", "nguon_b": "core.ty_le_tai_tro_max_x_tong_hoa_don", "op": "khong_vuot", "muc_khi_sai": "do", "phu_thuoc": ["3471", "3455"], "nguon_ngoai": true },
+    { "id": "DC-P1-03", "ten": "Người thụ hưởng UNC = bên bán hóa đơn", "nguon_a": "3472.ten_nguoi_thu_huong", "nguon_b": "3455.ben_ban", "op": "trung_ten", "muc_khi_sai": "do", "phu_thuoc": ["3472", "3455"] },
+    { "id": "DC-P1-04", "ten": "TK thụ hưởng UNC = TK chỉ định HĐ/hóa đơn", "nguon_a": "3472.so_tk_thu_huong", "nguon_b": "34231.tk_thu_huong_chi_dinh", "op": "trung", "muc_khi_sai": "do", "phu_thuoc": ["3472", "34231"] },
+    { "id": "DC-P1-05", "ten": "Bên mua hóa đơn = khách hàng vay", "nguon_a": "3455.ben_mua", "nguon_b": "core.ten_khach_hang", "op": "trung_ten", "muc_khi_sai": "do", "phu_thuoc": ["3455"], "nguon_ngoai": true },
+    { "id": "DC-P1-06", "ten": "Bên bán hóa đơn = bên bán hợp đồng", "nguon_a": "3455.ben_ban", "nguon_b": "34231.ben_ban", "op": "trung_ten", "muc_khi_sai": "vang", "phu_thuoc": ["3455", "34231"] },
+    { "id": "DC-P1-07", "ten": "Lũy kế hóa đơn không vượt giá trị hợp đồng", "nguon_a": "34231.gia_tri_hop_dong", "nguon_b": "history.tong_hoa_don_luy_ke", "op": "hoa_don_khong_vuot_hd", "muc_khi_sai": "do", "phu_thuoc": ["34231", "3455"], "nguon_ngoai": true },
+    { "id": "DC-P1-08", "ten": "Hóa đơn không dùng lại", "nguon_a": "3455.so_ky_hieu_hoa_don", "nguon_b": "history.ds_hoa_don_da_dung", "op": "khong_trung", "muc_khi_sai": "do", "phu_thuoc": ["3455"], "nguon_ngoai": true },
+    { "id": "DC-P1-09", "ten": "Tuổi hóa đơn trong ngưỡng hiệu lực", "nguon_a": "3455.ngay_lap", "nguon_b": "context.ngay_de_nghi_gn", "op": "trong_nguong_tuoi", "muc_khi_sai": "vang", "phu_thuoc": ["3455"] },
+    { "id": "DC-P1-10", "ten": "Hóa đơn không lập trước ngày hợp đồng", "nguon_a": "3455.ngay_lap", "nguon_b": "34231.ngay_hop_dong", "op": "khong_truoc", "muc_khi_sai": "vang", "phu_thuoc": ["3455", "34231"] },
+    { "id": "DC-P1-11", "ten": "Nội dung hàng hóa phù hợp mục đích vốn", "nguon_a": "3455.danh_muc_hang_hoa", "nguon_b": "3471.muc_dich_su_dung_von", "op": "phu_hop", "muc_khi_sai": "vang", "phu_thuoc": ["3455", "3471"] },
+    { "id": "DC-P1-12", "ten": "Số học nội tại hóa đơn (trước thuế + thuế = tổng)", "nguon_a": "3455.tien_truoc_thue_cong_thue", "nguon_b": "3455.tong_tien_thanh_toan", "op": "bang", "dung_sai": "TOLERANCE_VND", "muc_khi_sai": "vang", "phu_thuoc": ["3455"] },
+    { "id": "DC-P1-13", "ten": "Số đề nghị không vượt công nợ phải trả", "nguon_a": "3458.so_cong_no_phai_tra", "nguon_b": "3471.so_tien", "op": "khong_vuot_nguoc", "muc_khi_sai": "vang", "phu_thuoc": ["3458", "3471"] },
+    { "id": "DC-P1-14", "ten": "Hóa đơn nộp khớp danh sách trong BB đối chiếu", "nguon_a": "3458.danh_sach_hoa_don_tham_chieu", "nguon_b": "3455.so_ky_hieu_hoa_don", "op": "khop_tap", "muc_khi_sai": "vang", "phu_thuoc": ["3458", "3455"] },
+    { "id": "DC-P1-18", "ten": "Nội dung UNC dẫn về hóa đơn/hợp đồng", "nguon_a": "3472.noi_dung_chuyen_tien", "nguon_b": "3455.so_hoa_don", "op": "dan_nguon", "muc_khi_sai": "vang", "phu_thuoc": ["3472", "3455"] }
+  ]
+}

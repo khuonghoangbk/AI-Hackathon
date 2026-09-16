@@ -1,0 +1,18 @@
+{
+  "ma_checklist": "3455",
+  "voucher_type": "1",
+  "so_trang": 1,
+  "ghi_chu_thay_the": "TNTD thay thế Hóa đơn: dùng hóa đơn mới 00099999 chưa từng giải ngân (R7), tổng tiền 500tr (R2), bên bán/bên mua khớp (R3/R4).",
+  "noi_dung": {
+    "tieu_de": "Hóa đơn giá trị gia tăng",
+    "so_hoa_don": "00099999",
+    "ky_hieu": "1C26TXZ",
+    "ngay_lap": "2026-09-02",
+    "mst_ben_ban": "0301234567",
+    "mst_ben_mua": "0302222333",
+    "ben_ban": "Công ty TNHH Thiết Bị XYZ",
+    "ben_mua": "Công ty CP Thương Mại Hoàng Gia",
+    "tong_tien_thanh_toan": 500000000,
+    "noi_dung_hang_hoa": "Thiết bị văn phòng"
+  }
+}

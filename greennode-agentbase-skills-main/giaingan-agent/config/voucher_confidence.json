@@ -1,0 +1,7 @@
+{
+  "_mo_ta": "voucherType = LOẠI CHỨNG TỪ theo cách file được tạo (khóa nghiệp vụ gốc từ ECM, danh mục 7.31). KHÔNG phải phiếu ưu đãi/giảm giá. Dùng để: (1) hạ ngưỡng xác thực loại tài liệu ở bước 3 qua he_so_nguong; (2) gắn cờ do_tin_cay vào kết quả trích xuất ở bước 4. Ứng với quy tắc DC-C-07, DC-P23-21.",
+  "1": { "ten": "Bản số",            "mo_ta": "Hệ thống gen, không ký số",  "do_tin_cay": "cao",             "he_so_nguong": 1.0 },
+  "3": { "ten": "Bản ký số attach",  "mo_ta": "Hệ thống gen, có ký số",     "do_tin_cay": "cao",             "he_so_nguong": 1.0 },
+  "2": { "ten": "Bản attach vật lý", "mo_ta": "User upload bản giấy scan",  "do_tin_cay": "thap", "canh_bao": true, "he_so_nguong": 0.85 },
+  "4": { "ten": "Bản mềm attach",    "mo_ta": "User upload, không ký",      "do_tin_cay": "tuy_chat_luong",  "he_so_nguong": 0.85 }
+}

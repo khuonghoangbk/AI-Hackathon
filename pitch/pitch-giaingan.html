@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DisburseCheck — Pitch Deck</title>
+<style>
+  :root{
+    --bg:#0f1420; --panel:#151c2c; --line:#26324a; --txt:#e6ecf7; --muted:#93a1bd;
+    --brand:#3b82f6; --brand2:#2563eb; --green:#22c55e; --amber:#f59e0b; --red:#ef4444;
+    --accent:#7dd3fc;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI",Roboto,Arial,sans-serif;background:#0b0f19;color:var(--txt);line-height:1.55}
+
+  /* ----- Khung slide 16:9 ----- */
+  .slide{
+    width:1280px;height:720px;margin:24px auto;background:var(--bg);
+    border:1px solid var(--line);border-radius:16px;padding:56px 64px;
+    position:relative;overflow:hidden;display:flex;flex-direction:column;
+  }
+  .slide .kicker{color:var(--accent);font-size:15px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px}
+  .slide h1{font-size:34px;font-weight:700;margin-bottom:14px;line-height:1.25}
+  .slide h2{font-size:27px;font-weight:700;margin-bottom:18px}
+  .slide p{font-size:19px;color:#cdd7ea;margin-bottom:12px}
+  .slide .big{font-size:22px}
+  .num{color:var(--muted);font-size:13px;position:absolute;bottom:22px;right:32px}
+  .foot{color:var(--muted);font-size:13px;position:absolute;bottom:22px;left:64px}
+  ul{margin:6px 0 6px 22px} li{font-size:19px;margin-bottom:10px;color:#cdd7ea}
+  b,strong{color:#fff}
+  .tag{display:inline-block;padding:3px 12px;border-radius:999px;font-size:13px;font-weight:600;margin-left:8px}
+  .tag.r{background:rgba(59,130,246,.18);color:#93c5fd}
+  .tag.i{background:rgba(34,197,94,.16);color:#7ee2a4}
+  .tag.c{background:rgba(245,158,11,.16);color:#fbd38d}
+
+  .kpis{display:flex;gap:18px;margin:18px 0}
+  .kpi{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  .kpi .v{font-size:34px;font-weight:800;color:#fff}
+  .kpi .l{font-size:14px;color:var(--muted);margin-top:4px}
+  .kpi.red .v{color:var(--red)} .kpi.amber .v{color:var(--amber)} .kpi.green .v{color:var(--green)}
+
+  .cols{display:flex;gap:26px;flex:1}
+  .col{flex:1}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:14px}
+  .card h3{font-size:17px;color:#fff;margin-bottom:8px}
+  .steps{counter-reset:s;list-style:none;margin-left:0}
+  .steps li{counter-increment:s;position:relative;padding-left:40px;margin-bottom:12px}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:-2px;width:27px;height:27px;border-radius:50%;background:var(--brand2);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+  .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:14px;font-weight:700}
+  .pill.g{background:rgba(34,197,94,.16);color:#7ee2a4}
+  .pill.a{background:rgba(245,158,11,.16);color:#fbd38d}
+  .pill.r{background:rgba(239,68,68,.16);color:#fca5a5}
+  .arch{background:#0c1322;border:1px dashed var(--line);border-radius:12px;padding:20px;font-family:Consolas,monospace;font-size:16px;color:#bcd2f2;white-space:pre;line-height:1.7}
+  .ph{flex:1;border:2px dashed var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:16px;text-align:center;background:repeating-linear-gradient(45deg,#0e1524,#0e1524 12px,#0c1322 12px,#0c1322 24px)}
+  .note{background:rgba(59,130,246,.08);border:1px solid #2a4a7a;border-radius:10px;padding:12px 16px;font-size:15px;color:#bcd2f2;margin-top:8px}
+  table{width:100%;border-collapse:collapse;margin-top:8px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);font-size:16px}
+  th{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.4px}
+  .title-wrap{flex:1;display:flex;flex-direction:column;justify-content:center}
+  .title-wrap h1{font-size:52px} .title-wrap .sub{font-size:22px;color:var(--muted);margin-top:8px}
+  .team{margin-top:28px;font-size:18px;color:#cdd7ea}
+  .quote{font-size:26px;line-height:1.5;color:#fff;font-weight:600;max-width:900px}
+
+  @media print{
+    body{background:#fff}
+    .slide{width:100%;height:100vh;margin:0;border:none;border-radius:0;page-break-after:always;break-after:page}
+    @page{size:1280px 720px;margin:0}
+  }
+</style>
+</head>
+<body>
+
+<!-- 1. TIÊU ĐỀ -->
+<section class="slide">
+  <div class="kicker">MSB AI Hackathon 2026 · Đội Plutus</div>
+  <div class="title-wrap">
+    <h1>DisburseCheck</h1>
+    <div class="sub">Trợ lý AI kiểm tra sơ bộ hồ sơ giải ngân — đối chiếu chứng từ, cảnh báo rủi ro có dẫn nguồn</div>
+    <div class="quote" style="margin-top:34px">"Để trợ lý đọc và đối chiếu hồ sơ. Để Maker/Checker tập trung vào phần thực sự cần nghiệp vụ và phán đoán."</div>
+    <div class="team">Thành viên: anhnt32 · manhlv5 · hoangkv2 · anhdh5</div>
+  </div>
+  <div class="num">1 / 12</div>
+</section>
+
+<!-- 2. BÀI TOÁN -->
+<section class="slide">
+  <div class="kicker">Bài toán <span class="tag r">Reach</span><span class="tag c">Confident</span></div>
+  <h2>Kiểm tra hồ sơ giải ngân đang ngốn hàng trăm giờ mỗi ngày</h2>
+  <div class="kpis">
+    <div class="kpi"><div class="v">486</div><div class="l">hồ sơ/ngày</div></div>
+    <div class="kpi red"><div class="v">364</div><div class="l">giờ/ngày (486 × 45 phút)</div></div>
+    <div class="kpi"><div class="v">102</div><div class="l">nhân sự Maker/Checker</div></div>
+    <div class="kpi amber"><div class="v">44%</div><div class="l">hồ sơ phải trả lại/bổ sung</div></div>
+  </div>
+  <ul>
+    <li>Mỗi hồ sơ <b>14–19 mục tài liệu</b>, phải đối chiếu chéo thủ công (số tiền, người thụ hưởng, hóa đơn…).</li>
+    <li>Áp lực thời gian + khối lượng lớn → dễ bỏ sót; <b>gần một nửa hồ sơ phải quay lại</b> một vòng xử lý.</li>
+  </ul>
+  <div class="foot">DisburseCheck</div>
+  <div class="num">2 / 12</div>
+</section>
+
+<!-- 3. REACH -->
+<section class="slide">
+  <div class="kicker">Ai hưởng lợi <span class="tag r">Reach</span></div>
+  <h2>Quy mô tác động rộng, phát sinh hằng ngày</h2>
+  <div class="cols">
+    <div class="col">
+      <div class="card"><h3>Hưởng lợi trực tiếp</h3><p class="big">102 Maker/Checker TNTD — giảm khối lượng đọc/đối chiếu thủ công.</p></div>
+      <div class="card"><h3>Hưởng lợi gián tiếp</h3><p class="big">Khách hàng (rút ngắn thời gian chờ) · đơn vị kinh doanh (hồ sơ đúng ngay lần đầu).</p></div>
+    </div>
+    <div class="col">
+      <div class="card"><h3>Tần suất</h3><p class="big">Hằng ngày, liên tục.</p></div>
+      <div class="kpis" style="flex-direction:column">
+        <div class="kpi"><div class="v">~121.500</div><div class="l">hồ sơ/năm trong phạm vi</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">DisburseCheck</div>
+  <div class="num">3 / 12</div>
+</section>
+
+<!-- 4. VÌ SAO CHƯA GIẢI QUYẾT -->
+<section class="slide">
+  <div class="kicker">Khoảng trống <span class="tag c">Confident</span></div>
+  <h2>Vì sao vấn đề chưa được giải quyết?</h2>
+  <div class="cols">
+    <div class="col">
+      <div class="card"><h3>Hệ thống hiện tại</h3>
+        <ul><li>Quy tắc checklist đã có, nhưng chỉ kiểm <b>"có file hay không"</b>.</li>
+        <li>Không đọc/kiểm tra <b>nội dung</b> bên trong chứng từ.</li></ul></div>
+    </div>
+    <div class="col">
+      <div class="card"><h3>Hệ quả</h3>
+        <ul><li>Việc <b>đối chiếu chéo</b> giữa các chứng từ vẫn hoàn toàn thủ công.</li>
+        <li>Những lỗi tinh vi (hóa đơn dùng lại, lệch số tiền, sai người thụ hưởng) phụ thuộc mắt người.</li></ul></div>
+    </div>
+  </div>
+  <div class="note">Khoảng trống nằm ở <b>lớp đối chiếu nội dung</b> — đúng chỗ trợ lý AI tạo giá trị.</div>
+  <div class="foot">DisburseCheck</div>
+  <div class="num">4 / 12</div>
+</section>
+
+<!-- 5. GIẢI PHÁP -->
+<section class="slide">
+  <div class="kicker">Giải pháp</div>
+  <h2>Trợ lý đọc trước, làm 5 việc trên mỗi hồ sơ</h2>
+  <ol class="steps">
+    <li><b>Đối chiếu checklist</b> — phân loại tài liệu theo 16 mục (cửa chặn: khai sai loại → không xác thực được).</li>
+    <li><b>Trích xuất</b> các trường nghiệp vụ cần đối chiếu.</li>
+    <li><b>Đối chiếu chéo</b> theo bộ quy tắc (số tiền, người thụ hưởng, hợp đồng, lịch sử hóa đơn…).</li>
+    <li><b>Nêu điểm cần chú ý</b> kèm dẫn nguồn tới tài liệu + trang.</li>
+    <li><b>Phân loại mức độ</b> <span class="pill g">🟢 Sạch</span> <span class="pill a">🟡 Cần chú ý</span> <span class="pill r">🔴 Rủi ro</span></li>
+  </ol>
+  <div class="foot">DisburseCheck</div>
+  <div class="num">5 / 12</div>
+</section>
+
+<!-- 6. ĐIỂM KHÁC BIỆT -->
+<section class="slide">
+  <div class="kicker">Điểm khác biệt <span class="tag c">Confident</span></div>
+  <h2>Không phải công cụ OCR — giá trị nằm ở đối chiếu chéo</h2>
+  <div class="cols">
+    <div class="col"><div class="card" style="height:100%"><h3>OCR chỉ là bước đầu</h3><p class="big">OCR chuyển tài liệu thành dữ liệu. Đó không phải phần khó.</p></div></div>
+    <div class="col"><div class="card" style="height:100%;border-color:#2a4a7a"><h3>Giá trị thật</h3>
+      <p class="big">Bộ quy tắc <b>đối chiếu chéo</b> giữa các chứng từ, và đặc biệt:</p>
+      <p class="big" style="color:#7ee2a4"><b>Phát hiện hóa đơn đã dùng ở lần giải ngân trước</b> — thứ Maker rất khó thấy bằng mắt.</p></div></div>
+  </div>
+  <div class="foot">DisburseCheck</div>
+  <div class="num">6 / 12</div>
+</section>
+
+<!-- 7. KIẾN TRÚC -->
+<section class="slide">
+  <div class="kicker">Kiến trúc <span class="tag c">Confident</span></div>
+  <h2>Web → API → Agent trên GreenNode AgentBase → GreenNode MaaS</h2>
+  <div class="arch">Web dashboard ──REST──► Agent (7 bước, FastAPI) ──► GreenNode MaaS
+   (index.html)              trên GreenNode AgentBase        · GLM 5.2  — đối chiếu/suy luận
+                                     │                        · Qwen Flash 3.6 — phân loại/trích
+                                     ▼
+                       Dữ liệu mô phỏng (config + data_mock)
+                       Core / ECM / BPM = MÔ PHỎNG</div>
+  <div class="note">Đối chiếu số học (số tiền, hóa đơn trùng) là <b>logic xác định</b> — giải thích được, tái lập được. AI chỉ dùng ở 3 chỗ cần đọc-hiểu/suy luận.</div>
+  <div class="foot">DisburseCheck</div>
+  <div class="num">7 / 12</div>
+</section>
+
+<!-- 8. DEMO -->
+<section class="slide">
+  <div class="kicker">Demo (ảnh thật)</div>
+  <h2>Kết quả 3 mức + dẫn nguồn + 2 trang tài liệu cạnh nhau</h2>
+  <div class="cols">
+    <div class="ph">[ Ảnh demo 1 — Kết quả 🟢🟡🔴 + danh sách phát hiện có dẫn nguồn ]<br>(chèn sau khi deploy)</div>
+    <div class="ph">[ Ảnh demo 2 — Modal 2 trang tài liệu cạnh nhau, khoanh số liệu lệch ]<br>(chèn sau khi deploy)</div>
+  </div>
+  <div class="foot">DisburseCheck · Link demo: [điền endpoint sau khi deploy]</div>
+  <div class="num">8 / 12</div>
+</section>
+
+<!-- 9. IMPACT -->
+<section class="slide">
+  <div class="kicker">Impact <span class="tag i">Impact</span></div>
+  <h2>Tăng năng lực xử lý, không phải cắt giảm nhân sự</h2>
+  <div class="kpis">
+    <div class="kpi green"><div class="v">~109</div><div class="l">giờ tiết kiệm/ngày (giảm 30% thời gian)</div></div>
+    <div class="kpi green"><div class="v">~27.000</div><div class="l">giờ/năm</div></div>
+    <div class="kpi"><div class="v">486 → ~694</div><div class="l">hồ sơ/ngày (năng lực xử lý)</div></div>
+  </div>
+  <ul>
+    <li>Giảm tỷ lệ trả lại <b>44% → 30%</b> → thêm ~51 giờ/ngày nhờ hồ sơ đúng ngay lần đầu.</li>
+    <li>Giá trị lớn nhất: <b>loại bỏ một vòng xử lý lặp lại</b>, không chỉ là đọc nhanh hơn.</li>
+  </ul>
+  <div class="note">Đây là <b>ước tính theo kịch bản</b> (giảm 30%), cần đo thực tế bằng chạy song song ở Giai đoạn 1. Quy đổi ra tiền (AEV) = giờ tiết kiệm × đơn giá giờ công — <b>đơn giá lấy từ đơn vị</b>, chưa tự đặt số.</div>
+  <div class="foot">DisburseCheck</div>
+  <div class="num">9 / 12</div>
+</section>
+
+<!-- 10. SỐ ĐO ĐỘ TIN CẬY -->
+<section class="slide">
+  <div class="kicker">Độ tin cậy <span class="tag c">Confident</span></div>
+  <h2>Đo trên tập hồ sơ có sai lệch biết trước</h2>
+  <table>
+    <thead><tr><th>Nhóm hồ sơ</th><th>Kỳ vọng</th><th>Kết quả trợ lý</th></tr></thead>
+    <tbody>
+      <tr><td>Hồ sơ sạch (GN-2026-000479)</td><td>🟢 Sạch</td><td><span class="pill g">🟢 Sạch (7/7 khớp)</span></td></tr>
+      <tr><td>Hồ sơ đặc thù (GN-2026-000476)</td><td>🟡 Cần chú ý</td><td><span class="pill a">🟡 Hóa đơn scan mờ + giải ngân một phần</span></td></tr>
+      <tr><td>Hồ sơ có sai lệch (GN-2026-000481)</td><td>🔴 Rủi ro</td><td><span class="pill r">🔴 Lệch số tiền · sai người thụ hưởng · hóa đơn dùng lại</span></td></tr>
+    </tbody>
+  </table>
+  <div class="note">Ba chỉ số theo dõi khi triển khai thật: tỷ lệ <b>phát hiện đúng</b> / <b>bỏ sót</b> / <b>cảnh báo sai</b>. Cảnh báo sai là chỉ số cần bám sát nhất.</div>
+  <div class="foot">DisburseCheck</div>
+  <div class="num">10 / 12</div>
+</section>
+
+<!-- 11. NGUYÊN TẮC VẬN HÀNH -->
+<section class="slide">
+  <div class="kicker">Nguyên tắc vận hành <span class="tag c">Confident</span></div>
+  <h2>Trợ lý hỗ trợ, con người quyết định</h2>
+  <div class="cols">
+    <div class="col">
+      <div class="card"><h3>Con người quyết định</h3><p>Agent chỉ đưa "kết quả kiểm tra sơ bộ", <b>không kết luận duyệt/từ chối</b>. Thẩm quyền Maker/Checker không đổi.</p></div>
+      <div class="card"><h3>Mọi phát hiện dẫn nguồn</h3><p>Mỗi điểm 🔴🟡 trỏ về <b>tài liệu + trang + vị trí</b> để người tự xác nhận.</p></div>
+    </div>
+    <div class="col">
+      <div class="card"><h3>Không tạo an toàn giả</h3><p>Không xác thực được thì báo <b>⚪ chưa kiểm tra được</b>, không báo khớp bừa. Nêu rõ độ phủ.</p></div>
+      <div class="card"><h3>Dữ liệu giả lập</h3><p>Core/ECM/BPM là <b>mô phỏng</b>. Không dùng hồ sơ thật của MSB.</p></div>
+    </div>
+  </div>
+  <div class="foot">DisburseCheck</div>
+  <div class="num">11 / 12</div>
+</section>
+
+<!-- 12. LỘ TRÌNH -->
+<section class="slide">
+  <div class="kicker">Lộ trình & mở rộng <span class="tag i">Impact</span></div>
+  <h2>Từ một loại giải ngân đến toàn bộ nghiệp vụ chứng từ</h2>
+  <ol class="steps">
+    <li><b>Giai đoạn 1</b> — một loại giải ngân (P1) chạy <b>song song</b> quy trình hiện tại để đo hiệu quả thật.</li>
+    <li><b>Giai đoạn 2</b> — mở rộng 12 loại giải ngân trong nước, đưa vào màn hình tác nghiệp của Maker/Checker.</li>
+    <li><b>Giai đoạn 3</b> — giải ngân quốc tế + các nghiệp vụ chứng từ khác.</li>
+  </ol>
+  <div class="note"><b>Tầm nhìn:</b> đẩy khâu kiểm tra lên phía trước để loại hẳn một vòng xử lý — hồ sơ đúng ngay từ đầu.</div>
+  <div class="foot">DisburseCheck · Đội Plutus · anhnt32 · manhlv5 · hoangkv2 · anhdh5</div>
+  <div class="num">12 / 12</div>
+</section>
+
+</body>
+</html>

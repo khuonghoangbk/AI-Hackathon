@@ -1,0 +1,12 @@
+{
+  "dung_sai_lam_tron_vnd": 1000,
+  "rules": [
+    {"id": "R1", "mo_ta": "Số tiền đề nghị = Số tiền chỉ dẫn thanh toán",             "a": "so_tien_de_nghi",    "b": "so_tien_chi_dan_tt",   "op": "bang",                  "muc_khi_sai": "do"},
+    {"id": "R2", "mo_ta": "Số tiền đề nghị không vượt tổng giá trị hóa đơn",          "a": "so_tien_de_nghi",    "b": "tong_gia_tri_hoa_don", "op": "khong_vuot",            "muc_khi_sai": "do"},
+    {"id": "R3", "mo_ta": "Người thụ hưởng trùng bên bán trên hóa đơn",               "a": "nguoi_thu_huong",    "b": "ben_ban_hoa_don",      "op": "trung",                 "muc_khi_sai": "do"},
+    {"id": "R4", "mo_ta": "Khách hàng vay trùng bên mua trên hóa đơn",                "a": "khach_hang_vay",     "b": "ben_mua_hoa_don",      "op": "trung",                 "muc_khi_sai": "do"},
+    {"id": "R5", "mo_ta": "Tổng hóa đơn không vượt giá trị hợp đồng",                 "a": "gia_tri_hop_dong",   "b": "tong_gia_tri_hoa_don", "op": "hoa_don_khong_vuot_hd", "muc_khi_sai": "vang"},
+    {"id": "R6", "mo_ta": "Mục đích sử dụng phù hợp nội dung hàng hóa",               "a": "muc_dich_su_dung",   "b": "noi_dung_hang_hoa",    "op": "phu_hop",               "muc_khi_sai": "vang"},
+    {"id": "R7", "mo_ta": "Hóa đơn trong hồ sơ không trùng lịch sử giải ngân",        "a": "hoa_don_trong_ho_so","b": "lich_su_giai_ngan",    "op": "khong_trung",           "muc_khi_sai": "do"}
+  ]
+}

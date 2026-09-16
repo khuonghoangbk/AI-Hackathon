@@ -1,0 +1,14 @@
+{
+  "ma_checklist": "3471",
+  "voucher_type": "1",
+  "so_trang": 1,
+  "ghi_chu_thay_the": "TNTD thay thế Giấy nhận nợ: sửa số tiền 500tr cho khớp số tiền đề nghị của khoản vay (R1).",
+  "noi_dung": {
+    "tieu_de": "Giấy nhận nợ",
+    "so_tien": 500000000,
+    "loai_tien": "VND",
+    "ngay_nhan_no": "2026-09-05",
+    "ten_khach_hang": "Công ty CP Thương Mại Hoàng Gia",
+    "limit_id": "LMT-2026-0002"
+  }
+}

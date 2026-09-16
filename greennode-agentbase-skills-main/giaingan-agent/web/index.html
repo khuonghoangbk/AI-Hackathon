@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trợ lý kiểm tra hồ sơ giải ngân</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Trợ lý kiểm tra hồ sơ giải ngân</h1>
+    <p class="sub">MVP Hackathon — P1 (hàng hóa có hóa đơn) &middot; P3 (lương chuyển khoản)</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Kiểm tra sơ bộ (Luồng 1)</h2>
+      <div class="row">
+        <label>Chọn hồ sơ mock:
+          <select id="hoSoSelect"></select>
+        </label>
+        <button id="btnCheck">Kiểm tra sơ bộ</button>
+      </div>
+      <div id="tongHop" class="tong-hop"></div>
+      <div id="ketQua" class="ket-qua"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Hậu kiểm theo lô (Luồng 3)</h2>
+      <button id="btnBatch">Chạy lô &amp; xếp hạng rủi ro</button>
+      <div id="bangXepHang"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Trợ lý không kết luận hồ sơ đủ điều kiện giải ngân. Con người quyết định.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

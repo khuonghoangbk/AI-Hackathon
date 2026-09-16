@@ -1,0 +1,13 @@
+{
+  "mo_ta": "Quy tắc chung DC-C-xx, áp cho mọi loại giải ngân. 'phu_thuoc' liệt kê mã checklist mà rule cần; nếu mục đó ở trạng thái 🟠 thì rule trả ⚪.",
+  "rules": [
+    { "id": "DC-C-01", "ten": "Số tiền GNN = số tiền UNC", "nguon_a": "3471.so_tien", "nguon_b": "3472.so_tien", "op": "bang", "dung_sai": "TOLERANCE_VND", "muc_khi_sai": "do", "phu_thuoc": ["3471", "3472"] },
+    { "id": "DC-C-02", "ten": "Limit ID trên GNN khớp limit đã chọn", "nguon_a": "3471.limit_id", "nguon_b": "core.limit_id", "op": "trung", "muc_khi_sai": "do", "phu_thuoc": ["3471"], "nguon_ngoai": true },
+    { "id": "DC-C-03", "ten": "Tên/MST khách hàng vay khớp Core", "nguon_a": "3471.ten_khach_hang", "nguon_b": "core.ten_khach_hang", "op": "trung_ten", "muc_khi_sai": "do", "phu_thuoc": ["3471"], "nguon_ngoai": true },
+    { "id": "DC-C-04", "ten": "Số tiền GN không vượt hạn mức khả dụng", "nguon_a": "3471.so_tien", "nguon_b": "core.han_muc_kha_dung", "op": "khong_vuot", "muc_khi_sai": "do", "phu_thuoc": ["3471"], "nguon_ngoai": true },
+    { "id": "DC-C-06", "ten": "Không có chứng từ ghi ngày sau ngày giải ngân", "nguon_a": "*.ngay", "nguon_b": "context.ngay_de_nghi_gn", "op": "khong_sau", "muc_khi_sai": "vang", "phu_thuoc": [] },
+    { "id": "DC-C-07", "ten": "Cảnh báo độ tin cậy theo voucherType", "nguon_a": "*.voucher_type", "nguon_b": null, "op": "kiem_do_tin_cay", "muc_khi_sai": "vang", "phu_thuoc": [] },
+    { "id": "DC-C-09", "ten": "Tên người vay = tên người chuyển tiền", "nguon_a": "3471.ten_khach_hang", "nguon_b": "3472.ten_nguoi_chuyen", "op": "trung_ten", "muc_khi_sai": "do", "phu_thuoc": ["3471", "3472"] },
+    { "id": "DC-C-10", "ten": "TK trích nợ thuộc CIF khách hàng vay", "nguon_a": "3472.so_tk_trich_no", "nguon_b": "core.ds_tk_theo_cif", "op": "thuoc_tap", "muc_khi_sai": "do", "phu_thuoc": ["3472"], "nguon_ngoai": true }
+  ]
+}
