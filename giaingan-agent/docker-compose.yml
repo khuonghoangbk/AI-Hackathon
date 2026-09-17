@@ -1,0 +1,29 @@
+# Docker Compose cho GiaiNgan Agent (MSB AI Hackathon 2026)
+# Chay:  docker compose up --build
+# Dung:  docker compose down
+#
+# Image la multi-stage: build FE (React/Vite) roi FastAPI serve chung 1 cong.
+# -> Mo http://localhost:8080 la ra dashboard; API o cung origin (/requests, /check, /batch).
+#
+# App nghe cong 8080 ben trong container (yeu cau cua GreenNode AgentBase).
+
+services:
+  giaingan-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: giaingan-agent:latest
+    container_name: giaingan-agent
+    ports:
+      - "8080:8080"          # host:container -> truy cap tai http://localhost:8080
+    env_file:
+      - .env                 # nap bien moi truong tu .env (khong commit file nay)
+    environment:
+      PORT: "8080"           # dam bao app luon nghe 8080 trong container
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8080/health').status==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

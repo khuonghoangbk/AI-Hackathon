@@ -16,8 +16,9 @@ from __future__ import annotations
 
 import json
 import os
+import time
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable, TypeVar
 
 # Tu nap file .env o thu muc goc repo (giaingan-agent/.env) neu co python-dotenv.
 try:
@@ -30,9 +31,41 @@ except ImportError:
 MOCK = "mock"
 LIVE = "live"
 
+# So lan thu lai + thoi gian nghi (giay) khi gap loi ket noi/timeout tam thoi.
+# Luong live goi LLM nhieu lan lien tiep -> chi mot cu rot mang la ca request 500.
+# Retry giup demo live on dinh hon truoc mang chap chon.
+_MAX_RETRIES = int(os.getenv("LLM_MAX_RETRIES", "3"))
+_RETRY_BACKOFF = float(os.getenv("LLM_RETRY_BACKOFF", "1.5"))
+
+_T = TypeVar("_T")
+
 
 def default_mode() -> str:
     return os.getenv("RUN_MODE", MOCK).lower()
+
+
+def _is_transient(err: Exception) -> bool:
+    """Loi tam thoi co the thu lai: mat ket noi, timeout, rate limit, 5xx."""
+    name = type(err).__name__
+    if name in {"APIConnectionError", "APITimeoutError", "RateLimitError", "InternalServerError"}:
+        return True
+    status = getattr(err, "status_code", None)
+    return isinstance(status, int) and status >= 500
+
+
+def _with_retry(fn: Callable[[], _T]) -> _T:
+    """Chay fn(), tu dong thu lai khi gap loi tam thoi (exponential backoff)."""
+    last: Exception | None = None
+    for attempt in range(_MAX_RETRIES):
+        try:
+            return fn()
+        except Exception as e:  # noqa: BLE001 — phan loai lai o duoi
+            if not _is_transient(e) or attempt == _MAX_RETRIES - 1:
+                raise
+            last = e
+            time.sleep(_RETRY_BACKOFF * (2 ** attempt))
+    assert last is not None  # khong bao gio toi day
+    raise last
 
 
 class LLMConfigError(RuntimeError):
@@ -43,8 +76,8 @@ class LLMClient:
     def __init__(self) -> None:
         self.api_base = os.getenv("GREENNODE_API_BASE", "")
         self.api_key = os.getenv("GREENNODE_API_KEY", "")
-        self.model_reasoning = os.getenv("MODEL_REASONING", "glm-5.2")
-        self.model_fast = os.getenv("MODEL_FAST", "qwen-flash-3.6")
+        self.model_reasoning = os.getenv("MODEL_REASONING", "z-ai/glm-5.2-hackathon")
+        self.model_fast = os.getenv("MODEL_FAST", "qwen/qwen3.6-flash")
         self._client = None
 
     def _ensure_live_client(self):
@@ -71,14 +104,16 @@ class LLMClient:
             return {}
         client = self._ensure_live_client()
         model = self.model_fast if fast else self.model_reasoning
-        resp = client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": "Ban tra ve DUY NHAT mot JSON hop le, khong giai thich."},
-                {"role": "user", "content": prompt},
-            ],
-            response_format={"type": "json_object"},
-            temperature=0,
+        resp = _with_retry(
+            lambda: client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "system", "content": "Ban tra ve DUY NHAT mot JSON hop le, khong giai thich."},
+                    {"role": "user", "content": prompt},
+                ],
+                response_format={"type": "json_object"},
+                temperature=0,
+            )
         )
         content = resp.choices[0].message.content or "{}"
         try:
@@ -91,10 +126,12 @@ class LLMClient:
         if mode != LIVE:
             return ""
         client = self._ensure_live_client()
-        resp = client.chat.completions.create(
-            model=self.model_reasoning,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.2,
+        resp = _with_retry(
+            lambda: client.chat.completions.create(
+                model=self.model_reasoning,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.2,
+            )
         )
         return resp.choices[0].message.content or ""
 

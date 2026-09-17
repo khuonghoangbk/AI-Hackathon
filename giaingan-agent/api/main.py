@@ -19,6 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from fastapi import FastAPI, HTTPException  # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
+from fastapi.staticfiles import StaticFiles  # noqa: E402
 from pydantic import BaseModel  # noqa: E402
 
 from agent import orchestrator  # noqa: E402
@@ -105,3 +106,12 @@ def batch(req: BatchRequest):
         return orchestrator.check_batch(req.ho_so_ids, req.mode)
     except LLMConfigError as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+
+# ---- Phuc vu frontend da build (React/Vite) ----
+# Neu co thu muc web build (web-react/dist), mount tai "/" de FE + BE chay chung 1 cong.
+# Dat SAU cac route API o tren nen /health, /requests, /check, /batch khong bi che.
+# html=True -> tu tra index.html cho cac path khong khop file tinh (SPA fallback).
+_DIST_DIR = Path(__file__).resolve().parent.parent / "web-react" / "dist"
+if _DIST_DIR.is_dir():
+    app.mount("/", StaticFiles(directory=str(_DIST_DIR), html=True), name="frontend")

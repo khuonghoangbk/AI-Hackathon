@@ -14,10 +14,12 @@ __pycache__/
 *.pyc
 *.pyo
 
-# Node / web build (neu web build rieng)
+# Node / web build — deps va ban build se duoc tao lai trong Docker (stage web-build)
 node_modules/
+**/node_modules/
 .next/
 dist/
+web-react/dist/
 
 # Test/CI phu tro
 _test_*.py
