@@ -6,65 +6,115 @@
 <title>DisburseCheck — Pitch Deck</title>
 <style>
   :root{
-    --bg:#0f1420; --panel:#151c2c; --line:#26324a; --txt:#e6ecf7; --muted:#93a1bd;
-    --brand:#3b82f6; --brand2:#2563eb; --green:#22c55e; --amber:#f59e0b; --red:#ef4444;
-    --accent:#7dd3fc;
+    /* Nhận diện: MSB (host) đỏ cam + đen · GreenNode (co-host) xanh lá + đen */
+    --bg:#ffffff; --panel:#f6f7f9; --line:#e2e5ea; --txt:#1a1a1a; --muted:#5f6672;
+    --msb:#f4600c; --msb2:#c24700;      /* cam MSB */
+    --gn:#00a94f; --gn2:#008a41;        /* xanh GreenNode */
+    --brand:#f4600c; --brand2:#c24700;  /* màu nhấn chính = MSB */
+    --accent:#c24700;
+    --green:#00a94f; --amber:#d97706; --red:#f4600c;
+    --ink:#1a1a1a; --pagebg:#eceef1;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:"Segoe UI",Roboto,Arial,sans-serif;background:#0b0f19;color:var(--txt);line-height:1.55}
+  body{font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--pagebg);color:var(--txt);line-height:1.5}
 
-  /* ----- Khung slide 16:9 ----- */
+  /* ----- Khung slide 16:9 (1280x720) ----- */
   .slide{
     width:1280px;height:720px;margin:24px auto;background:var(--bg);
-    border:1px solid var(--line);border-radius:16px;padding:56px 64px;
+    border:1px solid var(--line);border-radius:14px;padding:52px 60px;
     position:relative;overflow:hidden;display:flex;flex-direction:column;
   }
-  .slide .kicker{color:var(--accent);font-size:15px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px}
-  .slide h1{font-size:34px;font-weight:700;margin-bottom:14px;line-height:1.25}
-  .slide h2{font-size:27px;font-weight:700;margin-bottom:18px}
-  .slide p{font-size:19px;color:#cdd7ea;margin-bottom:12px}
-  .slide .big{font-size:22px}
-  .num{color:var(--muted);font-size:13px;position:absolute;bottom:22px;right:32px}
-  .foot{color:var(--muted);font-size:13px;position:absolute;bottom:22px;left:64px}
-  ul{margin:6px 0 6px 22px} li{font-size:19px;margin-bottom:10px;color:#cdd7ea}
-  b,strong{color:#fff}
-  .tag{display:inline-block;padding:3px 12px;border-radius:999px;font-size:13px;font-weight:600;margin-left:8px}
-  .tag.r{background:rgba(59,130,246,.18);color:#93c5fd}
-  .tag.i{background:rgba(34,197,94,.16);color:#7ee2a4}
-  .tag.c{background:rgba(245,158,11,.16);color:#fbd38d}
+  .slide .kicker{color:var(--accent);font-size:15px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px}
+  /* Gạch nhấn đỏ MSB dưới tiêu đề mỗi slide nội dung */
+  .slide h2{font-size:26px;font-weight:800;margin-bottom:16px;color:var(--ink);padding-bottom:10px;border-bottom:3px solid var(--msb);display:inline-block}
+  .slide h1{font-size:34px;font-weight:800;margin-bottom:14px;line-height:1.25;color:var(--ink)}
+  .slide p{font-size:18px;color:#34383f;margin-bottom:10px}
+  .slide .big{font-size:20px}
+  .num{color:var(--muted);font-size:13px;position:absolute;bottom:20px;right:30px}
+  .foot{color:var(--muted);font-size:13px;position:absolute;bottom:20px;left:60px}
+  .foot b{color:var(--msb)}
+  ul{margin:4px 0 4px 22px} li{font-size:18px;margin-bottom:9px;color:#34383f}
+  b,strong{color:var(--ink)}
+  .tag{display:inline-block;padding:3px 12px;border-radius:999px;font-size:13px;font-weight:700;margin-left:8px}
+  .tag.r{background:#fdecdf;color:var(--msb2)}
+  .tag.i{background:#d9f4e5;color:var(--gn2)}
+  .tag.c{background:#fef3c7;color:#b45309}
 
-  .kpis{display:flex;gap:18px;margin:18px 0}
-  .kpi{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
-  .kpi .v{font-size:34px;font-weight:800;color:#fff}
+  .kpis{display:flex;gap:16px;margin:16px 0}
+  .kpi{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .kpi .v{font-size:32px;font-weight:800;color:var(--ink)}
   .kpi .l{font-size:14px;color:var(--muted);margin-top:4px}
-  .kpi.red .v{color:var(--red)} .kpi.amber .v{color:var(--amber)} .kpi.green .v{color:var(--green)}
+  .kpi.red .v{color:var(--msb)} .kpi.amber .v{color:var(--amber)} .kpi.green .v{color:var(--gn)}
 
-  .cols{display:flex;gap:26px;flex:1}
+  .cols{display:flex;gap:24px;flex:1}
   .col{flex:1}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:14px}
-  .card h3{font-size:17px;color:#fff;margin-bottom:8px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:12px}
+  .card h3{font-size:17px;color:var(--ink);margin-bottom:8px}
   .steps{counter-reset:s;list-style:none;margin-left:0}
-  .steps li{counter-increment:s;position:relative;padding-left:40px;margin-bottom:12px}
-  .steps li::before{content:counter(s);position:absolute;left:0;top:-2px;width:27px;height:27px;border-radius:50%;background:var(--brand2);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+  .steps li{counter-increment:s;position:relative;padding-left:40px;margin-bottom:11px}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:-2px;width:27px;height:27px;border-radius:50%;background:var(--msb);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
   .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:14px;font-weight:700}
-  .pill.g{background:rgba(34,197,94,.16);color:#7ee2a4}
-  .pill.a{background:rgba(245,158,11,.16);color:#fbd38d}
-  .pill.r{background:rgba(239,68,68,.16);color:#fca5a5}
-  .arch{background:#0c1322;border:1px dashed var(--line);border-radius:12px;padding:20px;font-family:Consolas,monospace;font-size:16px;color:#bcd2f2;white-space:pre;line-height:1.7}
-  .ph{flex:1;border:2px dashed var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:16px;text-align:center;background:repeating-linear-gradient(45deg,#0e1524,#0e1524 12px,#0c1322 12px,#0c1322 24px)}
-  .note{background:rgba(59,130,246,.08);border:1px solid #2a4a7a;border-radius:10px;padding:12px 16px;font-size:15px;color:#bcd2f2;margin-top:8px}
+  .pill.g{background:#d9f4e5;color:var(--gn2)}
+  .pill.a{background:#fef3c7;color:#b45309}
+  .pill.r{background:#fdecdf;color:var(--msb2)}
+  .arch{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;font-family:Consolas,monospace;font-size:15px;color:#2b2f36;white-space:pre;line-height:1.7}
+  .ph{flex:1;border:2px dashed #c3c8d0;border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:16px;text-align:center;background:repeating-linear-gradient(45deg,#f6f7f9,#f6f7f9 12px,#eef0f3 12px,#eef0f3 24px)}
+  .shot{flex:1;display:flex;flex-direction:column;min-width:0}
+  .shot .cap{font-size:13px;color:var(--muted);margin-bottom:8px;font-weight:600}
+  .shot .frame{flex:1;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+  .shot .frame img{width:100%;height:100%;object-fit:contain;display:block}
+  .note{background:#fff6ef;border:1px solid #f5d3b8;border-radius:10px;padding:11px 15px;font-size:15px;color:#7a3d16;margin-top:8px}
+  .note b{color:var(--msb2)}
   table{width:100%;border-collapse:collapse;margin-top:8px}
-  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);font-size:16px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);font-size:16px;color:#34383f}
   th{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.4px}
   .title-wrap{flex:1;display:flex;flex-direction:column;justify-content:center}
-  .title-wrap h1{font-size:52px} .title-wrap .sub{font-size:22px;color:var(--muted);margin-top:8px}
-  .team{margin-top:28px;font-size:18px;color:#cdd7ea}
-  .quote{font-size:26px;line-height:1.5;color:#fff;font-weight:600;max-width:900px}
+  .title-wrap h1{font-size:62px;color:var(--ink);letter-spacing:-.5px}
+  .title-wrap h1 .accent{color:var(--msb)}
+  .title-wrap .sub{font-size:22px;color:var(--muted);margin-top:10px}
+  .quote{font-size:24px;line-height:1.5;color:var(--ink);font-weight:700;max-width:900px;
+    border-left:4px solid var(--msb);padding-left:18px}
 
+  /* Badge sự kiện — gradient đỏ MSB */
+  .event-badge{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;
+    background:linear-gradient(135deg,var(--msb),#ff8a3d);color:#fff;
+    padding:8px 18px;border-radius:999px;font-size:14px;font-weight:700;
+    letter-spacing:.5px;text-transform:uppercase;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(244,96,12,.25)}
+  .event-badge .dot{width:8px;height:8px;border-radius:50%;background:#ffe0cc}
+
+  /* Dòng thành viên = các chip riêng */
+  .team{margin-top:28px}
+  .team .team-label{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:700;margin-bottom:12px}
+  .members{display:flex;gap:12px;flex-wrap:wrap}
+  .member{display:inline-flex;align-items:center;gap:9px;background:var(--panel);
+    border:1px solid var(--line);border-radius:999px;padding:7px 16px 7px 7px;
+    font-size:16px;font-weight:600;color:var(--ink)}
+  .member .av{width:30px;height:30px;border-radius:50%;
+    background:linear-gradient(135deg,var(--msb),#ff9a52);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
+
+  /* Dải Host / Co-host ở đáy slide tiêu đề */
+  .hosts{display:flex;gap:48px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line)}
+  .host-item .role{font-size:12px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px}
+  .host-item.host .role{color:var(--msb)}
+  .host-item.cohost .role{color:var(--gn)}
+  .host-item .name{font-size:22px;font-weight:800;color:var(--ink)}
+  .host-item .name .g1{color:var(--ink)} .host-item .name .g2{color:var(--gn)}
+
+  /* ----- In ra PDF: mỗi slide đúng 1 trang, không tràn ----- */
+  @page{size:1280px 720px;margin:0}
   @media print{
-    body{background:#fff}
-    .slide{width:100%;height:100vh;margin:0;border:none;border-radius:0;page-break-after:always;break-after:page}
-    @page{size:1280px 720px;margin:0}
+    html,body{background:#fff;margin:0;padding:0}
+    .slide{
+      margin:0;border:none;border-radius:0;
+      width:1280px;height:720px;
+      page-break-after:always;break-after:page;
+      page-break-inside:avoid;break-inside:avoid;
+    }
+    .slide:last-child{page-break-after:auto;break-after:auto}
+    /* Ép giữ màu nền các thành phần khi in */
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   }
 </style>
 </head>
@@ -72,12 +122,24 @@
 
 <!-- 1. TIÊU ĐỀ -->
 <section class="slide">
-  <div class="kicker">MSB AI Hackathon 2026 · Đội Plutus</div>
   <div class="title-wrap">
-    <h1>DisburseCheck</h1>
+    <div class="event-badge"><span class="dot"></span>MSB AI Hackathon 2026 · Đội Plutus</div>
+    <h1>Disburse<span class="accent">Check</span></h1>
     <div class="sub">Trợ lý AI kiểm tra sơ bộ hồ sơ giải ngân — đối chiếu chứng từ, cảnh báo rủi ro có dẫn nguồn</div>
-    <div class="quote" style="margin-top:34px">"Để trợ lý đọc và đối chiếu hồ sơ. Để Maker/Checker tập trung vào phần thực sự cần nghiệp vụ và phán đoán."</div>
-    <div class="team">Thành viên: anhnt32 · manhlv5 · hoangkv2 · anhdh5</div>
+    <div class="quote" style="margin-top:28px">"Để trợ lý đọc và đối chiếu hồ sơ. Để Maker/Checker tập trung vào phần thực sự cần nghiệp vụ và phán đoán."</div>
+    <div class="team">
+      <div class="team-label">Thành viên đội</div>
+      <div class="members">
+        <span class="member"><span class="av">AN</span>anhnt32</span>
+        <span class="member"><span class="av">ML</span>manhlv5</span>
+        <span class="member"><span class="av">HK</span>hoangkv2</span>
+        <span class="member"><span class="av">AD</span>anhdh5</span>
+      </div>
+    </div>
+    <div class="hosts">
+      <div class="host-item host"><div class="role">Host</div><div class="name">MSB</div></div>
+      <div class="host-item cohost"><div class="role">Co-host</div><div class="name"><span class="g1">GREEN</span><span class="g2">NODE</span></div></div>
+    </div>
   </div>
   <div class="num">1 / 12</div>
 </section>
@@ -162,9 +224,9 @@
   <h2>Không phải công cụ OCR — giá trị nằm ở đối chiếu chéo</h2>
   <div class="cols">
     <div class="col"><div class="card" style="height:100%"><h3>OCR chỉ là bước đầu</h3><p class="big">OCR chuyển tài liệu thành dữ liệu. Đó không phải phần khó.</p></div></div>
-    <div class="col"><div class="card" style="height:100%;border-color:#2a4a7a"><h3>Giá trị thật</h3>
+    <div class="col"><div class="card" style="height:100%;border-color:#f5d3b8;background:#fff6ef"><h3>Giá trị thật</h3>
       <p class="big">Bộ quy tắc <b>đối chiếu chéo</b> giữa các chứng từ, và đặc biệt:</p>
-      <p class="big" style="color:#7ee2a4"><b>Phát hiện hóa đơn đã dùng ở lần giải ngân trước</b> — thứ Maker rất khó thấy bằng mắt.</p></div></div>
+      <p class="big" style="color:#008a41"><b>Phát hiện hóa đơn đã dùng ở lần giải ngân trước</b> — thứ Maker rất khó thấy bằng mắt.</p></div></div>
   </div>
   <div class="foot">DisburseCheck</div>
   <div class="num">6 / 12</div>
@@ -188,12 +250,18 @@
 <!-- 8. DEMO -->
 <section class="slide">
   <div class="kicker">Demo (ảnh thật)</div>
-  <h2>Kết quả 3 mức + dẫn nguồn + 2 trang tài liệu cạnh nhau</h2>
+  <h2>Phát hiện rủi ro có dẫn nguồn → xử lý bằng hồ sơ thay thế</h2>
   <div class="cols">
-    <div class="ph">[ Ảnh demo 1 — Kết quả 🟢🟡🔴 + danh sách phát hiện có dẫn nguồn ]<br>(chèn sau khi deploy)</div>
-    <div class="ph">[ Ảnh demo 2 — Modal 2 trang tài liệu cạnh nhau, khoanh số liệu lệch ]<br>(chèn sau khi deploy)</div>
+    <div class="shot">
+      <div class="cap">Kết quả kiểm tra sơ bộ: phát hiện sai lệch 🔴, mỗi điểm có dẫn nguồn</div>
+      <div class="frame"><img src="Demo-1.png" alt="Kết quả kiểm tra sơ bộ có dẫn nguồn" /></div>
+    </div>
+    <div class="shot">
+      <div class="cap">Sau khi TNTD upload hồ sơ thay thế — số liệu lệch đã được xử lý (🔴 → 🟢)</div>
+      <div class="frame"><img src="Demo-2.png" alt="Kết quả sau khi upload hồ sơ thay thế, sai lệch đã được xử lý" /></div>
+    </div>
   </div>
-  <div class="foot">DisburseCheck · Link demo: [điền endpoint sau khi deploy]</div>
+  <div class="foot">DisburseCheck · Chạy trên GreenNode AgentBase (chế độ mock/AI thật)</div>
   <div class="num">8 / 12</div>
 </section>
 
@@ -260,7 +328,7 @@
     <li><b>Giai đoạn 3</b> — giải ngân quốc tế + các nghiệp vụ chứng từ khác.</li>
   </ol>
   <div class="note"><b>Tầm nhìn:</b> đẩy khâu kiểm tra lên phía trước để loại hẳn một vòng xử lý — hồ sơ đúng ngay từ đầu.</div>
-  <div class="foot">DisburseCheck · Đội Plutus · anhnt32 · manhlv5 · hoangkv2 · anhdh5</div>
+  <div class="foot"><b>DisburseCheck</b> · Đội Plutus · anhnt32 · manhlv5 · hoangkv2 · anhdh5</div>
   <div class="num">12 / 12</div>
 </section>
 
