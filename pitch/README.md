@@ -10,10 +10,12 @@
    - Destination / Máy in: **Save as PDF**
    - Layout: **Landscape** (ngang)
    - Margins / Lề: **None**
-   - Bật **Background graphics / In hình nền** (để giữ màu nền tối)
+   - Bật **Background graphics / In hình nền** (để giữ màu các thẻ KPI, pill, note)
+   - Scale: **Default / 100%** (đừng để "Fit to page")
 4. Save → đặt tên `pitch-giaingan.pdf` trong thư mục `pitch/`.
 
-> CSS đã set mỗi slide = 1 trang khi in. Nếu bị tràn/lệch trang, thử để Scale = 100% hoặc "Fit to page width".
+> Deck dùng **theme sáng (light)**, khổ 16:9 (1280×720). CSS đã set mỗi slide = đúng 1 trang khi in.
+> Nếu vẫn thấy trang trắng xen kẽ: kiểm tra Scale = 100% và Margins = None (đây là 2 nguyên nhân phổ biến nhất).
 
 ## Việc cần bổ sung trước khi nộp
 - **Slide 8 (Demo):** thay 2 ô placeholder bằng ảnh chụp màn hình thật sau khi deploy
