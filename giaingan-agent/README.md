@@ -4,6 +4,32 @@ Multi-step AI agent đọc hồ sơ giải ngân → phân loại → trích xu�
 
 > Phạm vi MVP: 1 loại giải ngân **P1 — "Giải ngân thanh toán cho hàng hóa, dịch vụ có hóa đơn"**, checklist 16 mục, 3 vùng hồ sơ.
 
+## AI Usage — Dùng model nào, ở nghiệp vụ nào
+
+Sản phẩm là **multi-step AI agent 7 bước**. LLM được gọi qua **GreenNode MaaS** (API tương thích OpenAI) tại **3 điểm nghiệp vụ cần đọc-hiểu/suy luận**; các bước còn lại dùng rule engine (logic Python + quy tắc JSON) để đảm bảo tính giải thích được và dẫn nguồn.
+
+**Model sử dụng:**
+- `z-ai/glm-5.2-hackathon` (**GLM 5.2** — reasoning): suy luận/đối chiếu ngữ nghĩa.
+- `qwen/qwen3.6-flash` (**Qwen3 Flash** — fast): phân loại + trích xuất trường có schema JSON.
+
+**Bản đồ AI theo từng bước (Luồng 1):**
+
+| Bước nghiệp vụ | Dùng AI? | Model / Agent | Vai trò của AI |
+|---|---|---|---|
+| B1. Lấy ngữ cảnh khoản vay | Không | — | Đọc dữ liệu có cấu trúc |
+| B2. Load tài liệu (mock ECM) | Không | — | Truy xuất chứng từ |
+| **B3. Phân loại tài liệu** (cửa chặn) | **Có** | Qwen3 Flash | Nhận diện loại chứng từ từ nội dung |
+| **B4. Trích xuất thông tin** | **Có** | Qwen3 Flash | Bóc tách trường: số tiền, người thụ hưởng, số/ngày hóa đơn… |
+| B5. Tra lịch sử hóa đơn | Không | — | Đối chiếu DB phát hiện hóa đơn dùng lại |
+| **B6. Đối chiếu mục đích ↔ hàng hóa (R6)** | **Có** | GLM 5.2 | Suy luận ngữ nghĩa: mục đích vay có khớp hàng hóa/dịch vụ không |
+| B7. Sinh báo cáo 3 mức + dẫn nguồn | Không | — | Tổng hợp kết quả theo rule |
+
+**Hai chế độ chạy — lưu ý khi chấm/verify:**
+- `mode=live` → **gọi LLM thật** tại B3/B4/B6. Lỗi tại bước nào thì fallback về logic Python cho bước đó. Cần cấu hình key trong `.env`.
+- `mode=mock` (mặc định) → **không gọi LLM**, chạy hoàn toàn bằng rule engine để demo luồng end-to-end offline, ổn định, không cần key.
+
+> Điểm gọi LLM nằm ở `agent/llm_client.py` (`extract_json()` dùng model fast, `reason()` dùng model reasoning) và được các bước `step3_classify.py`, `step4_extract.py`, `step6_crosscheck.py` sử dụng khi `mode=live`.
+
 ## Ba ràng buộc bắt buộc
 - **Dữ liệu giả lập/ẩn danh** — KHÔNG dùng hồ sơ thật của MSB. Toàn bộ dữ liệu trong `data_mock/` là mock.
 - **Con người quyết định** — agent chỉ đưa ra "kết quả kiểm tra sơ bộ", không kết luận duyệt/từ chối.
